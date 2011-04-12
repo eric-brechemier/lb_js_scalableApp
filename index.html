@@ -27,6 +27,7 @@
       .download { float: right; }
       pre { background: #000; color: #fff; padding: 15px;}
       hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+      .history { list-style-type: none; }
       .footer { text-align:center; padding-top:30px; font-style: italic; }
     </style>
   </head>
@@ -253,6 +254,131 @@
       </p>
 
       <h2 id="history">History</h2>
+      <ol class="history">
+        <li>2010-06-03,
+          Public Release on GitHub
+        </li>
+        <li>2010-06-04, v1.0.0,
+          Introduction of
+          <a href="http://semver.org">Semantic Versioning</a>
+          [<a href="#reference-3">3</a>]
+        </li>
+        <li>2010-06-10, v1.0.1,
+          Minor fix: replaced
+          <a href="http://github.com/nzakas/combiner">Combiner</a>
+          with concat</a>
+        </li>
+        <li>2010-06-11, v1.1.0,
+          Major fixes in <a href="build/out/doc/files/lb-base-history-js.html"
+          >history manager</a> and
+          <a href="build/out/doc/files/lb-core-Sandbox-js.html#lb.core.Sandbox.url.onHashChange%28callback%29"
+          >local navigation</a>
+        </li>
+        <li>2010-06-15, v1.1.1,
+          Minor additions in
+          <a href="build/out/doc/files/lb-base-dom-Listener-js.html"
+          >base DOM Listener</a>
+        </li>
+        <li>2010-06-18, v1.2.0,
+          <a href="build/out/doc/files/lb-core-Sandbox-js.html#lb.core.Sandbox.url.onHashChange%28callback%29"
+          >onHashChange</a> listener can now be removed or replaced
+        </li>
+        <li>2010-06-22, v1.2.1,
+          fixes and updates in Google Closure (base,array,debug)
+        </li>
+        <li>2010-07-27, v1.2.2,
+          <a href="build/out/doc/files/lb-core-Sandbox-js.html">Sandbox</a>
+          is now using
+          <a href="build/out/doc/files/lb-base-dom-factory-js.html">factory</a>
+          to <a href="build/out/doc/files/lb-core-Sandbox-js.html#lb.core.Sandbox.dom.addListener(element,type,callback):Listener"
+          >create</a>/<a href="build/out/doc/files/lb-core-Sandbox-js.html#lb.core.Sandbox.dom.removeListener(listener)"
+          >destroy</a> listeners
+        </li>
+        <li>2010-08-09, v1.2.3,
+          more lenient
+          <a href="build/out/doc/files/lb-base-dom-factory-js.html#lb.base.dom.factory.destroyEvent(event)"
+          >destroyEvent()</a> now ignores custom events
+        </li>
+        <li>2010-08-12, v1.2.4,
+          added
+          <a href="build/out/doc/files/lb-base-dom-factory-js.html#lb.base.dom.factory.initElement(element)"
+          >initElement()</a> extension point for custom factories
+        </li>
+        <li>2010-09-03, v1.2.5,
+          Bug fix: added content-type declaration in
+          <a href="build/out/doc/files/lb-base-ajax-js.html#lb.base.ajax.send(url,data,receive)"
+          >AJAX calls</a>
+        </li>
+        <li>2010-09-15, v1.2.6,
+          Enhancement: disabled
+          <a href="build/out/doc/files/lb-base-log-js.html">debug logs</a>
+          (too noisy in XHR)
+        </li>
+        <li>2010-09-22, v1.3.0,
+          Added
+          <a href="build/out/doc/files/lb-core-Sandbox-js.html#lb.core.Sandbox.utils.clearTimeout(timeoutId)"
+          >clearTimeout</a> and
+          <a href="build/out/doc/files/lb-core-Sandbox-js.html#lb.core.Sandbox.utils.getTimestamp():number"
+          >getTimestamp</a> in sandbox.utils API
+        </li>
+        <li>2010-10-26, v1.4.0,
+          Added
+          <a href="build/out/doc/files/lb-core-Sandbox-js.html#lb.core.Sandbox.utils.confirm(message):boolean"
+          >confirm</a> method in sandbox.utils API
+        </li>
+        <li>2010-12-20, v1.4.1,
+          Refactored <a href="build/out/doc/files/lb-base-i18n-js.html"
+          >base i18n API</a>: simpler yet powerful
+        </li>
+        <li>2010-12-20, v1.4.2,
+          Bug fix:
+          <a href="build/out/doc/files/lb-base-i18n-js.html#lb.base.i18n.equals(languageCode1,languageCode2):boolean"
+          >language code comparison</a> is now case-insensitive
+        </li>
+        <li>2011-01-05, v1.5.0,
+          Added support for
+          <a href="build/out/doc/files/lb-core-Sandbox-js.html#lb.core.Sandbox.i18n.getLanguageList():array_of_strings"
+          >internationalization</a> (i18n)
+        </li>
+        <li>2011-01-07, v1.5.1,
+          Refactoring: moved
+          <a href="build/out/doc/files/lb-base-template-i18n-js.html#lb.base.template.i18n.filterHtml(htmlNode[,data[,languageCode]])"
+          >filterHtml</a> code to base i18n templates
+        </li>
+        <li>2011-01-13, v1.5.2,
+          Enhanced i18n: 
+          <a href="build/out/doc/files/lb-base-template-i18n-js.html#lb.base.template.i18n.withValuesFromDataOrLanguageProperties([data[,languageCode]]):function"
+          >language properties fallback</a>
+          in
+          <a href="build/out/doc/files/lb-base-template-i18n-js.html"
+          >templates</a>
+        </li>
+        <li>2011-01-24, v1.5.3,
+          Enhancement: catch and go on when a
+          <a href="build/out/doc/files/lb-core-Module-js.html"
+          >module</a> fails to
+          <a href="build/out/doc/files/lb-core-application-js.html#lb.core.application.startAll"
+          >start</a>
+        </li>
+        <li>2011-01-24, v1.5.4,
+          Enhancement: added explicit string conversion for Module
+        </li>
+        <li>2011-01-24, v1.5.5,
+          Enhancement: log errors from filters in topDownParsing()
+        </li>
+        <li>2011-01-24, v1.5.6,
+          Bug fix: replaceParams only sets nodeValue if different
+        </li>
+        <li>2011-03-29, v1.5.7,
+          Fixed replacement of parameters in src and href in IE7
+        </li>
+        <li>2011-04-08, v1.5.8,
+          Parameter replacement in getString() is now recursive
+        </li>
+        <li>2011-04-12, v1.6.0,
+          Added has() and is() methods to Sandbox utils API
+        </li>
+      </ol>
 
       <h2 id="references">References</h2>
       <ol>
