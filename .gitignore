@@ -1,0 +1,2 @@
+# ignore dated versions in build/out/js
+build/out/js/lb-min-*.js
