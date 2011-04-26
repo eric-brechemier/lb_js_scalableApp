@@ -17,6 +17,11 @@ Timestamp: yyyy-dd-mm
 #   yyyy  - Four digit year.  2006 is "2006"
 #   year  - Four digit year.  2006 is "2006"
 
+# These are indexes you deleted, so Natural Docs will not add them again
+# unless you remove them from this line.
+
+Don't Index: Constants
+
 
 # --------------------------------------------------------------------------
 # 
@@ -42,16 +47,23 @@ Group: Sandbox API  {
 
    Text: sandboxed API, for use in your modules
    File: lb.core.Sandbox  (no auto-title, lb.core.Sandbox.js)
+   File: lb.core.plugins.css  (no auto-title, lb.core.plugins.css.js)
+   File: lb.core.plugins.dom  (no auto-title, lb.core.plugins.dom.js)
+   File: lb.core.plugins.events  (no auto-title, lb.core.plugins.events.js)
+   File: lb.core.plugins.i18n  (no auto-title, lb.core.plugins.i18n.js)
+   File: lb.core.plugins.server  (no auto-title, lb.core.plugins.server.js)
+   File: lb.core.plugins.url  (no auto-title, lb.core.plugins.url.js)
+   File: lb.core.plugins.utils  (no auto-title, lb.core.plugins.utils.js)
    }  # Group: Sandbox API
 
 Group: Core API  {
 
    Text: public API, for use in your applications to create and manage modules
    File: lb.core.application  (no auto-title, lb.core.application.js)
-   File: lb.core.events  (no auto-title, lb.core.events.js)
    File: lb.core.events.publisher  (no auto-title, lb.core.events.publisher.js)
    File: lb.core.events.Subscriber  (no auto-title, lb.core.events.Subscriber.js)
    File: lb.core.Module  (no auto-title, lb.core.Module.js)
+   File: lb.core.plugins.builder  (no auto-title, lb.core.plugins.builder.js)
    }  # Group: Core API
 
 Group: Base API  {
@@ -84,6 +96,8 @@ Group: Namespaces  {
    File: lb  (no auto-title, lb.js)
    File: lb.base  (no auto-title, lb.base.js)
    File: lb.core  (no auto-title, lb.core.js)
+   File: lb.core.events  (no auto-title, lb.core.events.js)
+   File: lb.core.plugins  (no auto-title, lb.core.plugins.js)
    File: lb.data  (no auto-title, lb.data.js)
    File: lb.ui  (no auto-title, lb.ui.js)
    }  # Group: Namespaces
@@ -93,6 +107,5 @@ Group: Index  {
    Index: All
    Class Index: Modules
    Function Index: Methods
-   Constant Index: Constants
    }  # Group: Index
 
