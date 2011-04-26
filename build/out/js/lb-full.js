@@ -18345,12 +18345,11 @@ goog.net.XhrIo.prototype.formatMsg_ = function(msg) {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-01-05
+ * 2011-04-20
  */
 /*jslint white:false, plusplus:false */
 /*global window */
-// preserve the library, if already loaded
-window.lb = window.lb || (function() {
+window.lb = (function() {
   // Builder of
   // Closure for Root of Legal Box Scalable JavaScript Application
 
@@ -18374,13 +18373,12 @@ window.lb = window.lb || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-01-05
+ * 2011-04-20
  */
 /*requires lb.js */
 /*jslint white:false, plusplus:false */
 /*global lb */
-// preserve the module, if already loaded
-lb.base = lb.base || (function() {
+lb.base = (function() {
   // Builder of
   // Closure for lb.base namespace
 
@@ -18404,13 +18402,12 @@ lb.base = lb.base || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-04-11
+ * 2011-04-20
  */
 /*requires lb.base.js */
 /*jslint white:false, plusplus:false */
 /*global lb */
-// preserve the module, if already loaded
-lb.base.type = lb.base.type || (function() {
+lb.base.type = (function() {
   // Builder of
   // Closure for lb.base.type module
 
@@ -18567,13 +18564,12 @@ lb.base.type = lb.base.type || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-04-12
+ * 2011-04-20
  */
 /*requires lb.base.js */
 /*jslint white:false, plusplus:false */
 /*global lb, goog */
-// preserve the module, if already loaded
-lb.base.object = lb.base.object || (function() {
+lb.base.object = (function() {
   // Builder of
   // Closure for lb.base.object module
 
@@ -18685,13 +18681,12 @@ lb.base.object = lb.base.object || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-01-05
+ * 2011-04-20
  */
 /*requires lb.base.js */
 /*jslint white:false, plusplus:false */
 /*global lb, goog */
-// preserve the module, if already loaded
-lb.base.array = lb.base.array || (function() {
+lb.base.array = (function() {
   // Builder of
   // Closure for lb.base.array module
 
@@ -18786,13 +18781,12 @@ lb.base.array = lb.base.array || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-04-12
+ * 2011-04-21
  */
 /*requires lb.base.js */
 /*jslint white:false, plusplus:false */
 /*global lb, goog */
-// preserve the module, if already loaded
-lb.base.config = lb.base.config || (function() {
+lb.base.config = (function() {
   // Builder of
   // Closure for lb.base.config module
 
@@ -18825,7 +18819,7 @@ lb.base.config = lb.base.config || (function() {
     // In order to avoid clashes in the names of configuration properties,
     // each property should use a prefix corresponding to the implementor of
     // the module which makes use of it. All configuration properties used in
-    // modules implemented by Legal Box will use the prefix 'lb', e.g.
+    // modules implemented by Legal-Box will use the prefix 'lb', e.g.
     // 'lbFactory' for the DOM Element Factory.
     //
     // Parameter:
@@ -18878,13 +18872,12 @@ lb.base.config = lb.base.config || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-04-12
+ * 2011-04-20
  */
 /*requires lb.base.js */
 /*jslint white:false, plusplus:false */
 /*global lb, goog */
-// preserve the module, if already loaded
-lb.base.dom = lb.base.dom || (function() {
+lb.base.dom = (function() {
   // Builder of
   // Closure for lb.base.dom module
 
@@ -18997,13 +18990,12 @@ lb.base.dom = lb.base.dom || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-01-05
+ * 2011-04-20
  */
 /*requires lb.base.dom.js */
 /*jslint white:false, plusplus:false */
 /*global lb, goog */
-// preserve the module, if already loaded
-lb.base.dom.css = lb.base.dom.css || (function() {
+lb.base.dom.css = (function() {
   // Builder of
   // Closure for lb.base.dom.css module
 
@@ -19091,14 +19083,12 @@ lb.base.dom.css = lb.base.dom.css || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-04-12
+ * 2011-04-20
  */
 /*requires lb.base.dom.js */
 /*jslint white:false, plusplus:false */
 /*global lb, goog */
-// preserve the module, if already loaded
-lb.base.dom.Listener = lb.base.dom.Listener ||
-  function(element, type, callback, useCapture) {
+lb.base.dom.Listener = function(element, type, callback, useCapture) {
   // Function: new Listener(element, type, callback[, useCapture])
   // Create a new listener for a type of event on a DOM element.
   //
@@ -19238,13 +19228,12 @@ lb.base.dom.Listener = lb.base.dom.Listener ||
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-01-05
+ * 2011-04-20
  */
 /*requires lb.base.dom.js */
 /*jslint white:false, plusplus:false */
 /*global lb, goog */
-// preserve the module, if already loaded
-lb.base.dom.factory = lb.base.dom.factory || (function() {
+lb.base.dom.factory = (function() {
   // Builder of
   // Closure for lb.base.dom.factory module
 
@@ -19500,13 +19489,12 @@ lb.base.dom.factory = lb.base.dom.factory || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-04-12
+ * 2011-04-20
  */
 /*requires lb.base.js */
 /*jslint white:false, plusplus:false */
 /*global lb, goog, window, document */
-// preserve the module, if already loaded
-lb.base.history = lb.base.history || (function() {
+lb.base.history = (function() {
   // Builder of
   // Closure for lb.base.history module
 
@@ -19778,13 +19766,12 @@ lb.base.history = lb.base.history || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-04-12
+ * 2011-04-20
  */
 /*requires lb.base.js */
 /*jslint white:false, plusplus:false */
 /*global lb, goog, navigator, document */
-// preserve the module, if already loaded
-lb.base.i18n = lb.base.i18n || (function() {
+lb.base.i18n = (function() {
   // Builder of
   // Closure for lb.base.i18n module
 
@@ -20053,13 +20040,12 @@ lb.base.i18n = lb.base.i18n || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-04-12
+ * 2011-04-20
  */
 /*requires lb.base.i18n.js */
 /*jslint white:false, plusplus:false */
 /*global lb */
-// preserve the module, if already loaded
-lb.base.i18n.data = lb.base.i18n.data || (function() {
+lb.base.i18n.data = (function() {
   // Builder of
   // Closure for lb.base.i18n.data module
 
@@ -20293,13 +20279,12 @@ lb.base.i18n.data = lb.base.i18n.data || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-04-12
+ * 2011-04-20
  */
 /*requires lb.base.js */
 /*jslint white:false, plusplus:false */
 /*global lb, goog */
-// preserve the module, if already loaded
-lb.base.log = lb.base.log || (function() {
+lb.base.log = (function() {
   // Builder of
   // Closure for lb.base.log module
 
@@ -20355,13 +20340,12 @@ lb.base.log = lb.base.log || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-01-05
+ * 2011-04-20
  */
 /*requires lb.base.js */
 /*jslint white:false, plusplus:false */
 /*global lb, goog */
-// preserve the module, if already loaded
-lb.base.string = lb.base.string || (function() {
+lb.base.string = (function() {
   // Builder of
   // Closure for lb.base.string module
 
@@ -20405,13 +20389,12 @@ lb.base.string = lb.base.string || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-04-12
+ * 2011-04-20
  */
 /*requires lb.base.js */
 /*jslint white:false, plusplus:false */
 /*global lb, goog */
-// preserve the module, if already loaded
-lb.base.template = lb.base.template || (function() {
+lb.base.template = (function() {
   // Builder of
   // Closure for lb.base.template module
 
@@ -20548,13 +20531,12 @@ lb.base.template = lb.base.template || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-04-12
+ * 2011-04-20
  */
 /*requires lb.base.js */
 /*jslint white:false, plusplus:false */
 /*global lb, goog */
-// preserve the module, if already loaded
-lb.base.template.string = lb.base.template.string || (function() {
+lb.base.template.string = (function() {
   // Builder of
   // Closure for lb.base.template.string module
 
@@ -20714,13 +20696,12 @@ lb.base.template.string = lb.base.template.string || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-03-29
+ * 2011-04-20
  */
 /*requires lb.base.template.js */
 /*jslint white:false, plusplus:false */
 /*global lb, goog, window */
-// preserve the module, if already loaded
-lb.base.template.html = lb.base.template.html || (function() {
+lb.base.template.html = (function() {
   // Builder of
   // Closure for lb.base.template.html module
 
@@ -20969,13 +20950,12 @@ lb.base.template.html = lb.base.template.html || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-04-12
+ * 2011-04-20
  */
 /*requires lb.base.template.js */
 /*jslint white:false, plusplus:false */
 /*global lb */
-// preserve the module, if already loaded
-lb.base.template.i18n = lb.base.template.i18n || (function() {
+lb.base.template.i18n = (function() {
   // Builder of
   // Closure for lb.base.template.i18n module
 
@@ -21344,13 +21324,12 @@ lb.base.template.i18n = lb.base.template.i18n || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-01-05
+ * 2011-04-20
  */
 /*requires lb.base.js */
 /*jslint white:false, plusplus:false */
 /*global lb, goog */
-// preserve the module, if already loaded
-lb.base.json = lb.base.json || (function() {
+lb.base.json = (function() {
   // Builder of
   // Closure for lb.base.json module
 
@@ -21407,13 +21386,12 @@ lb.base.json = lb.base.json || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-01-05
+ * 2011-04-20
  */
 /*requires lb.base.js */
 /*jslint white:false, plusplus:false */
 /*global lb, goog */
-// preserve the module, if already loaded
-lb.base.ajax = lb.base.ajax || (function() {
+lb.base.ajax = (function() {
   // Builder of
   // Closure for lb.base.ajax module
 
@@ -21477,13 +21455,12 @@ lb.base.ajax = lb.base.ajax || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-01-05
+ * 2011-04-20
  */
 /*requires lb.js */
 /*jslint white:false, plusplus:false */
 /*global lb */
-// preserve the module, if already loaded
-lb.core = lb.core || (function() {
+lb.core = (function() {
   // Builder of
   // Closure for lb.core namespace
 
@@ -21507,13 +21484,12 @@ lb.core = lb.core || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-01-05
+ * 2011-04-20
  */
 /*requires lb.core.js */
 /*jslint white:false, plusplus:false */
 /*global lb */
-// preserve the module, if already loaded
-lb.core.events = lb.core.events || (function() {
+lb.core.events = (function() {
   // Builder of
   // Closure for lb.core.events namespace
 
@@ -21540,13 +21516,12 @@ lb.core.events = lb.core.events || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-01-05
+ * 2011-04-20
  */
 /*requires lb.core.events.js */
 /*jslint white:false, plusplus:false */
 /*global lb */
-// preserve the module, if already loaded
-lb.core.events.publisher = lb.core.events.publisher || (function() {
+lb.core.events.publisher = (function() {
   // Builder of
   // Closure for lb.core.events.publisher module
 
@@ -21659,14 +21634,12 @@ lb.core.events.publisher = lb.core.events.publisher || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-01-05
+ * 2011-04-20
  */
 /*requires lb.core.events.js */
 /*jslint white:false, plusplus:false */
 /*global lb */
-// preserve the module, if already loaded
-lb.core.events.Subscriber = lb.core.events.Subscriber ||
-                            function(filter, callback){
+lb.core.events.Subscriber = function(filter, callback){
   // Function: new Subscriber(filter,callback): Subscriber
   // Constructor of a new Core Events Subscriber.
   //
@@ -21768,13 +21741,12 @@ lb.core.events.Subscriber = lb.core.events.Subscriber ||
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-01-24
+ * 2011-04-21
  */
 /*requires lb.core.js */
 /*jslint white:false, plusplus:false */
 /*global lb, window */
-// preserve the module, if already loaded
-lb.core.application = lb.core.application || (function() {
+lb.core.application = (function() {
   // Builder of
   // Closure for lb.core.application module
 
@@ -21804,8 +21776,25 @@ lb.core.application = lb.core.application || (function() {
   // Function: setOptions(options)
   // Configure a set of option properties.
   //
-  // Note:
-  // Previous properties are preserved unless overwritten by new properties.
+  // Each new option is added to the configuration, replacing any existing
+  // value of the same name. Options previously set are otherwise preserved.
+  //
+  // Supported Properties:
+  //   lbBuilder - builder used in <lb.core.Module> to create an instance of
+  //               the Sandbox for the new module from a selection of plugins
+  //               which define different parts of the Sandbox API.
+  //               Defaults to <lb.core.plugins.builder>, which creates a
+  //               Sandbox with all the plugins defined in the framework.
+  //               Use of a custom builder allows to customize the Sandbox
+  //               API by loading custom plugins besides or instead of the
+  //               plugins defined in the framework.
+  //   lbFactory - factory used in the Sandbox methods to create and destroy
+  //               DOM elements, DOM listeners and DOM events, and used in
+  //               lb.core.Module to "initialize" the box elements of a new
+  //               module. Defaults to <lb.base.dom.factory>. Use of a custom
+  //               factory allows to "initialize" the box by creating widgets
+  //               associated with DOM elements within which, for example,
+  //               carry particular CSS class names.
   //
   // Parameter:
   //   options - object, a hash of configuration properties.
@@ -21911,60 +21900,64 @@ lb.core.application = lb.core.application || (function() {
  * modifications to the box assigned to the module, an HTML element which
  * encloses the module.
  *
- * The methods related to the module itself are defined on the Sandbox.
- * Other methods are separated into groups of similar purpose.
+ * The methods related to the module itself are defined on the Sandbox. Other
+ * methods are defined by separate plugin modules.
  *
  * Module (sandbox):
- *   - <getId([localId]):string>
- *   - <getBox(createIfMissing): DOM Element>
- *   - <isInBox(element): boolean>
+ *   - <sandbox.getId([localId]):string>
+ *   - <sandbox.getBox(createIfMissing): DOM Element>
+ *   - <sandbox.isInBox(element): boolean>
  *
- * Cascading Style Sheets (sandbox.css):
- *   - <css.getClasses(element): object>
- *   - <css.addClass(element,name)>
- *   - <css.removeClass(element,name)>
+ * Cascading Style Sheets (sandbox.css, defined by <lb.core.plugins.css>):
+ *   - <lb.core.plugins.css.sandbox.css.getClasses(element): object>
+ *   - <lb.core.plugins.css.sandbox.css.addClass(element,name)>
+ *   - <lb.core.plugins.css.sandbox.css.removeClass(element,name)>
  *
- * Document Object Model (sandbox.dom):
- *   - <dom.$(localId): DOM Element>
- *   - <dom.element(name[,attributes[,childNodes]]): DOM Element>
- *   - <dom.fireEvent(element,type[,properties]): DOM Event>
- *   - <dom.cancelEvent(event)>
- *   - <dom.getListeners(): array>
- *   - <dom.addListener(element,type,callback): Listener>
- *   - <dom.removeListener(listener)>
- *   - <dom.removeAllListeners()>
+ * Document Object Model (sandbox.dom, defined by <lb.core.plugins.dom>):
+ *   - <lb.core.plugins.dom.sandbox.dom.$(localId): DOM Element>
+ *   - <lb.core.plugins.dom.sandbox.dom.element(name[,attributes[,childNodes]]): DOM Element>
+ *   - <lb.core.plugins.dom.sandbox.dom.fireEvent(element,type[,properties]): DOM Event>
+ *   - <lb.core.plugins.dom.sandbox.dom.cancelEvent(event)>
+ *   - <lb.core.plugins.dom.sandbox.dom.getListeners(): array>
+ *   - <lb.core.plugins.dom.sandbox.dom.addListener(element,type,callback): Listener>
+ *   - <lb.core.plugins.dom.sandbox.dom.removeListener(listener)>
+ *   - <lb.core.plugins.dom.sandbox.dom.removeAllListeners()>
  *
- * Events for loose coupling with other modules (sandbox.events):
- *   - <events.subscribe(filter,callback)>
- *   - <events.unsubscribe(filter)>
- *   - <events.publish(event)>
+ * Events for loose coupling with other modules (sandbox.events, defined by <lb.core.plugins.events>):
+ *   - <lb.core.plugins.events.sandbox.events.subscribe(filter,callback)>
+ *   - <lb.core.plugins.events.sandbox.events.unsubscribe(filter)>
+ *   - <lb.core.plugins.events.sandbox.events.publish(event)>
  *
- * Internationalization through language properties (sandbox.i18n):
- *   - <i18n.getLanguageList(): array of strings>
- *   - <i18n.getSelectedLanguage(): string>
- *   - <i18n.selectLanguage(languageCode)>
- *   - <i18n.addLanguageProperties(languageCode,languageProperties)>
- *   - <i18n.get(key[,languageCode]): any>
- *   - <i18n.getString(key[,data[,languageCode]]): string>
- *   - <i18n.filterHtml(htmlNode[,data[,languageCode]])>
+ * Internationalization through language properties (sandbox.i18n, defined by <lb.core.plugins.i18n>):
+ *   - <lb.core.plugins.i18n.sandbox.i18n.getLanguageList(): array of strings>
+ *   - <lb.core.plugins.i18n.sandbox.i18n.getSelectedLanguage(): string>
+ *   - <lb.core.plugins.i18n.sandbox.i18n.selectLanguage(languageCode)>
+ *   - <lb.core.plugins.i18n.sandbox.i18n.addLanguageProperties(languageCode,languageProperties)>
+ *   - <lb.core.plugins.i18n.sandbox.i18n.get(key[,languageCode]): any>
+ *   - <lb.core.plugins.i18n.sandbox.i18n.getString(key[,data[,languageCode]]): string>
+ *   - <lb.core.plugins.i18n.sandbox.i18n.filterHtml(htmlNode[,data[,languageCode]])>
  *
- * Asynchronous communication with a remote server (sandbox.server):
- *   - <server.send(url,data,receive)>
+ * Asynchronous communication with a remote server (sandbox.server, defined by <lb.core.plugins.server>):
+ *   - <lb.core.plugins.server.sandbox.server.send(url,data,receive)>
  *
- * Uniform Resource Locator, local navigation (sandbox.url):
- *   - <url.getLocation(): object>
- *   - <url.setHash(hash)>
- *   - <url.onHashChange(callback)>
+ * Uniform Resource Locator, local navigation (sandbox.url, defined by <lb.core.plugins.url>):
+ *   - <lb.core.plugins.url.sandbox.url.getLocation(): object>
+ *   - <lb.core.plugins.url.sandbox.url.setHash(hash)>
+ *   - <lb.core.plugins.url.sandbox.url.onHashChange(callback)>
  *
  * General utilities (sandbox.utils):
- *   - <utils.has(object,property[,...]): boolean>
- *   - <utils.is([...,]value[,type]): boolean>
- *   - <utils.getTimestamp(): number>
- *   - <utils.setTimeout(callback,delay): number>
- *   - <utils.clearTimeout(timeoutId)>
- *   - <utils.trim(string): string>
- *   - <utils.log(message)>
- *   - <utils.confirm(message): boolean>
+ *   - <lb.core.plugins.utils.sandbox.utils.has(object,property[,...]): boolean>
+ *   - <lb.core.plugins.utils.sandbox.utils.is([...,]value[,type]): boolean>
+ *   - <lb.core.plugins.utils.sandbox.utils.getTimestamp(): number>
+ *   - <lb.core.plugins.utils.sandbox.utils.setTimeout(callback,delay): number>
+ *   - <lb.core.plugins.utils.sandbox.utils.clearTimeout(timeoutId)>
+ *   - <lb.core.plugins.utils.sandbox.utils.trim(string): string>
+ *   - <lb.core.plugins.utils.sandbox.utils.log(message)>
+ *   - <lb.core.plugins.utils.sandbox.utils.confirm(message): boolean>
+ *
+ * The plugins are loaded by the Sandbox Builder. The sandbox API can be
+ * customized by configuring a different sandbox builder to load additional or
+ * alternative plugins. See <lb.core.plugins.builder> for details.
  *
  * Author:
  * Eric Bréchemier <legalbox@eric.brechemier.name>
@@ -21977,13 +21970,12 @@ lb.core.application = lb.core.application || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-04-12
+ * 2011-04-26
  */
 /*requires lb.core.js */
 /*jslint white:false, plusplus:false */
 /*global lb, document, window */
-// preserve the module, if already loaded
-lb.core.Sandbox = lb.core.Sandbox || function (id){
+lb.core.Sandbox = function (id){
   // Function: new Sandbox(id): Sandbox
   // Constructor of a new Sandbox.
   //
@@ -21996,65 +21988,26 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
   //   object, the new instance of Sandbox
 
   // Define aliases
-      /*requires lb.base.type.js */
-  var is = lb.base.type.is,
-      /*requires lb.base.object.js */
+  var /*requires lb.base.object.js */
       has = lb.base.object.has,
-      /*requires lb.base.array.js */
-      removeAll = lb.base.array.removeAll,
-      /*requires lb.base.dom.js */
-      dom = lb.base.dom,
-      /*requires lb.base.dom.css.js */
-      css = lb.base.dom.css,
-      /*requires lb.base.ajax.js */
-      send = lb.base.ajax.send,
-      /*requires lb.base.string.js */
-      trim = lb.base.string.trim,
-      /*requires lb.base.log.js */
-      log = lb.base.log.print,
-      /*requires lb.base.history.js */
-      history = lb.base.history,
-      setHash = history.setHash,
       /*requires lb.base.config.js */
       config = lb.base.config,
-      /*requires lb.base.i18n.js */
-      i18n = lb.base.i18n,
-      /*requires lb.base.i18n.data.js */
-      i18nData = i18n.data,
-      /*requires lb.base.template.i18n.js */
-      i18nTemplate = lb.base.template.i18n,
-      /*requires lb.core.events.publisher.js */
-      publisher = lb.core.events.publisher,
-      /*requires lb.core.events.Subscriber.js */
-      Subscriber = lb.core.events.Subscriber,
+      /*requires lb.base.dom.factory.js */
+      defaultFactory = lb.base.dom.factory,
+      /*requires lb.base.dom.js */
+      dom = lb.base.dom,
+      /*requires lb.base.log.js */
+      log = lb.base.log.print,
 
   // Private fields
 
-    // object, the factory used to create DOM elements, listeners and events.
-    // A custom factory can be configured by setting the property lbFactory.
-    // Defaults to lb.base.dom.factory.
-    /*requires lb.base.dom.factory.js */
-    factory = config.getOption('lbFactory', lb.base.dom.factory),
-
-    // DOM element, the root of the box, carrying the module identifier.
-    // Used only in getBox(), to avoid multiple lookups of the same element.
-    // Initialized on first call to getBox().
-    box = null,
-
-    // array, the set of Subscribers created for this module.
-    // Kept locally for use in unsubscribe().
-    subscribers = [],
-
-    // array, the set of listeners created by this module
-    // Kept for removeAllListeners().
-    listeners = [],
-
-    // function, the current listener set to onHashChange(), which will get
-    // replaced in a new call to onHashChange().
-    hashChangeCallback = null;
+      // DOM element, the root of the box, carrying the module identifier.
+      // Used only in getBox(), to avoid multiple lookups of the same element.
+      // Initialized on first call to getBox().
+      box = null;
 
   function getId(localId){
-    // Function: getId([localId]): string
+    // Function: sandbox.getId([localId]): string
     // Get the identifier of the module, when optional parameter is omitted.
     // With optional parameter, get the full identifier corresponding to the
     // given local identifier.
@@ -22078,7 +22031,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
   }
 
   function getBox(createIfMissing){
-    // Function: getBox(createIfMissing): DOM Element
+    // Function: sandbox.getBox(createIfMissing): DOM Element
     // Get the root HTML element for this module.
     //
     // Parameter:
@@ -22095,6 +22048,8 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
     //   * or null, in case createIfMissing is false and the element is missing
     createIfMissing = has(createIfMissing)? createIfMissing : true;
 
+    var factory;
+
     if ( has(box) ) {
       return box;
     }
@@ -22102,6 +22057,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
     if ( !has(box) && createIfMissing){
       log('Warning: no element "'+id+
           '" found in box. Will be created at end of body.');
+      factory = config.getOption('lbFactory', defaultFactory);
       box = factory.createElement('div',{'id': id});
       document.body.appendChild(box);
     }
@@ -22109,7 +22065,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
   }
 
   function isInBox(element){
-    // Function: isInBox(element): boolean
+    // Function: sandbox.isInBox(element): boolean
     // Check whether the given element is in the box.
     //
     // Parameter:
@@ -22141,8 +22097,77 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
     return false;
   }
 
+  // Public methods
+  this.getId = getId;
+  this.getBox = getBox;
+  this.isInBox = isInBox;
+};
+/*
+ * Namespace: lb.core.plugins
+ * Core Plugins which define API methods for the Sandbox.
+ *
+ * Author:
+ * Eric Bréchemier <legalbox@eric.brechemier.name>
+ *
+ * Copyright:
+ * Legal-Box SAS (c) 2010-2011, All Rights Reserved
+ *
+ * License:
+ * BSD License
+ * http://creativecommons.org/licenses/BSD/
+ *
+ * Version:
+ * 2011-04-21
+ */
+/*requires lb.core.js */
+/*jslint white:false, plusplus:false */
+/*global lb */
+lb.core.plugins = (function() {
+  // Builder of
+  // Closure for lb.core.plugins namespace
+
+  // Note: no methods defined at this level currently
+
+  return { // public API
+  };
+}());
+/*
+ * Namespace: lb.core.plugins.css
+ * Cascading Style Sheets Plugin for the Sandbox API
+ *
+ * Author:
+ * Eric Bréchemier <legalbox@eric.brechemier.name>
+ *
+ * Copyright:
+ * Legal-Box SAS (c) 2010-2011, All Rights Reserved
+ *
+ * License:
+ * BSD License
+ * http://creativecommons.org/licenses/BSD/
+ *
+ * Version:
+ * 2011-04-26
+ */
+/*requires lb.core.plugins.js */
+/*jslint white:false, plusplus:false */
+/*global lb */
+lb.core.plugins.css = function(sandbox) {
+  // Function: css(sandbox)
+  // Define methods in the 'css' property of given sandbox.
+  //
+  // Parameters:
+  //   sandbox - object, the sandbox instance to enrich with CSS methods
+
+  // Define aliases
+  var getId = sandbox.getId,
+      isInBox = sandbox.isInBox,
+      /*requires lb.base.dom.css.js */
+      css = lb.base.dom.css,
+      /*requires lb.base.log.js */
+      log = lb.base.log.print;
+
   function getClasses(element){
-    // Function: css.getClasses(element): object
+    // Function: sandbox.css.getClasses(element): object
     // Get the CSS classes of given DOM element.
     //
     // Parameter:
@@ -22162,7 +22187,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
 
     if ( !isInBox(element) ){
       log('Warning: cannot get CSS classes of element "'+element+
-          '" outside of box "'+id+'"');
+          '" outside of box "'+getId()+'"');
       return {};
     }
 
@@ -22170,7 +22195,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
   }
 
   function addClass(element,name){
-    // Function: css.addClass(element,name)
+    // Function: sandbox.css.addClass(element,name)
     // Append a CSS class to a DOM element part of the box.
     //
     // Parameters:
@@ -22182,7 +22207,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
 
     if ( !isInBox(element) ){
       log('Warning: cannot add CSS class to element "'+element+
-          '" outside of box "'+id+'"');
+          '" outside of box "'+getId()+'"');
       return;
     }
 
@@ -22190,7 +22215,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
   }
 
   function removeClass(element,name){
-    // Function: css.removeClass(element,name)
+    // Function: sandbox.css.removeClass(element,name)
     // Remove a CSS class from a DOM element part of the box.
     //
     // Parameters:
@@ -22202,15 +22227,73 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
 
     if ( !isInBox(element) ){
       log('Warning: cannot remove CSS class from element "'+element+
-          '" outside of box "'+id+'"');
+          '" outside of box "'+getId()+'"');
       return;
     }
 
     css.removeClass(element,name);
   }
 
+  sandbox.css = {
+    getClasses: getClasses,
+    addClass: addClass,
+    removeClass: removeClass
+  };
+};
+/*
+ * Namespace: lb.core.plugins.dom
+ * Document Object Model Plugin for the Sandbox API
+ *
+ * Author:
+ * Eric Bréchemier <legalbox@eric.brechemier.name>
+ *
+ * Copyright:
+ * Legal-Box SAS (c) 2010-2011, All Rights Reserved
+ *
+ * License:
+ * BSD License
+ * http://creativecommons.org/licenses/BSD/
+ *
+ * Version:
+ * 2011-04-26
+ */
+/*requires lb.core.plugins.js */
+/*jslint white:false, plusplus:false */
+/*global lb */
+lb.core.plugins.dom = function(sandbox) {
+  // Function: dom(sandbox)
+  // Define methods in the 'dom' property of given sandbox.
+  //
+  // Parameters:
+  //   sandbox - object, the sandbox instance to enrich with DOM methods
+
+  // Define aliases
+  var getId = sandbox.getId,
+      isInBox = sandbox.isInBox,
+      /*requires lb.base.array.js */
+      removeAll = lb.base.array.removeAll,
+      /*requires lb.base.config.js */
+      config = lb.base.config,
+      /*requires lb.base.dom.factory.js */
+      defaultFactory = lb.base.dom.factory,
+      /*requires lb.base.dom.js */
+      dom = lb.base.dom,
+      /*requires lb.base.log.js */
+      log = lb.base.log.print,
+
+  // Private fields
+
+    // object, the factory used to create DOM elements, listeners and events.
+    // A custom factory can be configured by setting the property lbFactory.
+    // Defaults to lb.base.dom.factory.
+    factory = config.getOption('lbFactory', defaultFactory),
+
+    // array, the set of listeners created by this module
+    // Kept for removeAllListeners().
+    listeners = [];
+
   function $(localId){
-    // Function: dom.$(localId): DOM Element
+    // Function: sandbox.dom.$(localId): DOM Element
     // Get the element of the box with given local identifier.
     //
     // Parameter:
@@ -22229,12 +22312,12 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
     if ( isInBox(element) ){
       return element;
     }
-    log('Warning: element "'+getId(localId)+'" not part of box "'+id+'"');
+    log('Warning: element "'+getId(localId)+'" not part of box "'+getId()+'"');
     return null;
   }
 
   function element(name,attributes){
-    // Function: dom.element(name[,attributes[,childNodes]]): DOM Element
+    // Function: sandbox.dom.element(name[,attributes[,childNodes]]): DOM Element
     // Create a new DOM element using the configured DOM factory.
     // For example, using the default DOM factory,
     // |  element('a',{href:'#here',title:'Here'},'Click here')
@@ -22257,7 +22340,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
   }
 
   function fireEvent(element, type, properties){
-    // Function: dom.fireEvent(element,type[,properties]): DOM Event
+    // Function: sandbox.dom.fireEvent(element,type[,properties]): DOM Event
     // Create and dispatch a new DOM event to the given element,
     // using the configured DOM factory.
     //
@@ -22275,7 +22358,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
   }
 
   function cancelEvent(event){
-    // Function: dom.cancelEvent(event)
+    // Function: sandbox.dom.cancelEvent(event)
     // Cancel an event using the configured DOM factory.
     //
     // Using the default DOM factory, cancelling an event prevents the default
@@ -22288,7 +22371,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
   }
 
   function getListeners(){
-    // Function: dom.getListeners(): array
+    // Function: sandbox.dom.getListeners(): array
     // Get the list of listeners configured on DOM elements of the box.
     // Listeners can be added with addListener() and removed one by one with
     // removeListener(), or all at once with removeAllListeners().
@@ -22300,7 +22383,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
   }
 
   function addListener(element,type,callback){
-    // Function: dom.addListener(element,type,callback): Listener
+    // Function: sandbox.dom.addListener(element,type,callback): Listener
     // Register a new listener for a type of event on a DOM element of the box
     // using the configured DOM factory.
     //
@@ -22323,7 +22406,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
     // Warning: element parameter hides element() function
     if ( !isInBox(element) ){
       log('Warning: cannot add listener to element "'+element+
-          '" outside of box "'+id+'"');
+          '" outside of box "'+getId()+'"');
       return null;
     }
 
@@ -22333,7 +22416,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
   }
 
   function removeListener(listener){
-    // Function: dom.removeListener(listener)
+    // Function: sandbox.dom.removeListener(listener)
     // Unregister a listener, using the configured DOM factory.
     //
     // Parameters:
@@ -22355,7 +22438,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
   }
 
   function removeAllListeners(){
-    // Function: dom.removeAllListeners()
+    // Function: sandbox.dom.removeAllListeners()
     // Remove all listeners configured on DOM elements of the box, using the
     // configured DOM factory.
     //
@@ -22370,8 +22453,58 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
     removeAll(listeners);
   }
 
+  sandbox.dom = {
+    $:$,
+    element: element,
+    fireEvent: fireEvent,
+    cancelEvent: cancelEvent,
+    getListeners: getListeners,
+    addListener: addListener,
+    removeListener: removeListener,
+    removeAllListeners: removeAllListeners
+  };
+};
+/*
+ * Namespace: lb.core.plugins.events
+ * Publish/Subscribe Plugin for the Sandbox API
+ *
+ * Author:
+ * Eric Bréchemier <legalbox@eric.brechemier.name>
+ *
+ * Copyright:
+ * Legal-Box SAS (c) 2010-2011, All Rights Reserved
+ *
+ * License:
+ * BSD License
+ * http://creativecommons.org/licenses/BSD/
+ *
+ * Version:
+ * 2011-04-26
+ */
+/*requires lb.core.plugins.js */
+/*jslint white:false, plusplus:false */
+/*global lb */
+lb.core.plugins.events = function(sandbox) {
+  // Function: events(sandbox)
+  // Define methods in the 'events' property of given sandbox.
+  //
+  // Parameters:
+  //   sandbox - object, the sandbox instance to enrich with Pub/Sub methods
+
+  // Define aliases
+  var /*requires lb.core.events.publisher.js */
+      publisher = lb.core.events.publisher,
+      /*requires lb.core.events.Subscriber.js */
+      Subscriber = lb.core.events.Subscriber,
+
+  // Private fields
+
+    // array, the set of Subscribers created for this module.
+    // Kept locally for use in unsubscribe().
+    subscribers = [];
+
   function subscribe(filter,callback){
-    // Function: events.subscribe(filter,callback)
+    // Function: sandbox.events.subscribe(filter,callback)
     // Create a new event subscription, triggering the callback only for events
     // matching the provided filter.
     //
@@ -22397,7 +22530,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
   }
 
   function unsubscribe(filter){
-    // Function: events.unsubscribe(filter)
+    // Function: sandbox.events.unsubscribe(filter)
     // Remove all subscriptions for given filter.
     //
     // Parameter:
@@ -22421,7 +22554,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
     }
   }
 
-  // Function: events.publish(event)
+  // Function: sandbox.events.publish(event)
   // Publish a new event for broadcasting to all interested subscribers.
   //
   // Parameter:
@@ -22434,7 +22567,49 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
 
   // Note: publish is an alias for lb.core.events.publisher.publish
 
-  // Function: i18n.getLanguageList(): array of strings
+  sandbox.events = {
+    subscribe: subscribe,
+    unsubscribe: unsubscribe,
+    publish: publisher.publish
+  };
+
+};
+/*
+ * Namespace: lb.core.plugins.i18n
+ * Internationalization Plugin for the Sandbox API
+ *
+ * Author:
+ * Eric Bréchemier <legalbox@eric.brechemier.name>
+ *
+ * Copyright:
+ * Legal-Box SAS (c) 2010-2011, All Rights Reserved
+ *
+ * License:
+ * BSD License
+ * http://creativecommons.org/licenses/BSD/
+ *
+ * Version:
+ * 2011-04-26
+ */
+/*requires lb.core.plugins.js */
+/*jslint white:false, plusplus:false */
+/*global lb */
+lb.core.plugins.i18n = function(sandbox) {
+  // Function: i18n(sandbox)
+  // Define methods in the 'i18n' property of given sandbox.
+  //
+  // Parameters:
+  //   sandbox - object, the sandbox instance to enrich with i18n methods
+
+  // Declare aliases
+  var /*requires lb.base.i18n.js */
+      i18n = lb.base.i18n,
+      /*requires lb.base.i18n.data.js */
+      i18nData = i18n.data,
+      /*requires lb.base.template.i18n.js */
+      i18nTemplate = lb.base.template.i18n;
+
+  // Function: sandbox.i18n.getLanguageList(): array of strings
   // Get the list of available languages.
   //
   // Returns:
@@ -22443,7 +22618,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
 
   // Note: getLanguageList is an alias for lb.base.i18n.data.getLanguageCodes
 
-  // Function: i18n.getSelectedLanguage(): string
+  // Function: sandbox.i18n.getSelectedLanguage(): string
   // Get the language currently selected for the application.
   //
   // Returns:
@@ -22454,7 +22629,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
   // Note: getSelectedLanguage() is an alias for getDefaultLanguageCode()
   //       in lb.base.i18n.data, which returns the same value
 
-  // Function: i18n.selectLanguage(languageCode)
+  // Function: sandbox.i18n.selectLanguage(languageCode)
   // Select the language of the application, shared by all modules.
   //
   // The language code of selected language is stored in the 'lang' attribute
@@ -22475,7 +22650,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
     i18n.setLanguage(languageCode);
   }
 
-  // Function: i18n.addLanguageProperties(languageCode,languageProperties)
+  // Function: sandbox.i18n.addLanguageProperties(languageCode,languageProperties)
   // Define or replace properties for given language.
   //
   // Language properties are inherited by all languages whose language code
@@ -22497,7 +22672,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
 
   // Note: This is an alias for lb.base.i8n.data.addLanguageProperties
 
-  // Function: i18n.get(key[,languageCode]): any
+  // Function: sandbox.i18n.get(key[,languageCode]): any
   // Get the value of the property identified by given key.
   //
   // Parameters:
@@ -22517,7 +22692,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
 
   // Note: get() is an alias for lb.base.i18n.data.get()
 
-  // Function: i18n.getString(key[,data[,languageCode]]): string
+  // Function: sandbox.i18n.getString(key[,data[,languageCode]]): string
   // Get a string computed by replacing data values in the most specific
   // value found for given key, used as a string template.
   //
@@ -22585,7 +22760,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
 
   // Note: getString() is an alias for lb.base.template.i18n.getString()
 
-  // Function: i18n.filterHtml(htmlNode[,data[,languageCode]])
+  // Function: sandbox.i18n.filterHtml(htmlNode[,data[,languageCode]])
   // Replace parameters and trim nodes based on html 'lang' attribute.
   //
   // The given HTML node is modified in place. You should clone it beforehand
@@ -22652,7 +22827,48 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
 
   // Note: filterHtml is an alias for lb.base.template.i18n.filterHtml
 
-  // Function: server.send(url,data,receive)
+  sandbox.i18n = {
+    getLanguageList: i18nData.getLanguageCodes,
+    getSelectedLanguage: i18nData.getDefaultLanguageCode,
+    selectLanguage: selectLanguage,
+    addLanguageProperties: i18nData.addLanguageProperties,
+    get: i18nData.get,
+    getString: i18nTemplate.getString,
+    filterHtml: i18nTemplate.filterHtml
+  };
+};
+/*
+ * Namespace: lb.core.plugins.server
+ * Asynchronous Communication with a Remote Server Plugin for the Sandbox API
+ *
+ * Author:
+ * Eric Bréchemier <legalbox@eric.brechemier.name>
+ *
+ * Copyright:
+ * Legal-Box SAS (c) 2010-2011, All Rights Reserved
+ *
+ * License:
+ * BSD License
+ * http://creativecommons.org/licenses/BSD/
+ *
+ * Version:
+ * 2011-04-22
+ */
+/*requires lb.core.plugins.js */
+/*jslint white:false, plusplus:false */
+/*global lb */
+lb.core.plugins.server = function(sandbox) {
+  // Function: server(sandbox)
+  // Define methods in the 'server' property of given sandbox.
+  //
+  // Parameters:
+  //   sandbox - object, the sandbox instance to enrich with the send method
+
+  // Declare aliases
+  var /*requires lb.base.ajax.js */
+      send = lb.base.ajax.send;
+
+  // Function: sandbox.server.send(url,data,receive)
   // Send and receive data from the remote host.
   //
   // Parameters:
@@ -22664,8 +22880,52 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
 
   // Note: send is an alias for lb.base.ajax.send
 
+  sandbox.server = {
+    send: send
+  };
+};
+/*
+ * Namespace: lb.core.plugins.url
+ * Uniform Resource Locator Plugin for the Sandbox API
+ *
+ * Author:
+ * Eric Bréchemier <legalbox@eric.brechemier.name>
+ *
+ * Copyright:
+ * Legal-Box SAS (c) 2010-2011, All Rights Reserved
+ *
+ * License:
+ * BSD License
+ * http://creativecommons.org/licenses/BSD/
+ *
+ * Version:
+ * 2011-04-26
+ */
+/*requires lb.core.plugins.js */
+/*jslint white:false, plusplus:false */
+/*global lb, window */
+lb.core.plugins.url = function(sandbox) {
+  // Function: url(sandbox)
+  // Define methods in the 'url' property of given sandbox.
+  //
+  // Parameters:
+  //   sandbox - object, the sandbox instance to enrich with URL methods
+
+  // Declare aliases
+  var /*requires lb.base.object.js */
+      has = lb.base.object.has,
+      /*requires lb.base.history.js */
+      history = lb.base.history,
+      setHash = history.setHash,
+
+  // Private fields
+
+      // function, the current listener set to onHashChange(), which will get
+      // replaced in a new call to onHashChange().
+      hashChangeCallback = null;
+
   function getLocation(){
-    // Function: url.getLocation(): object
+    // Function: sandbox.url.getLocation(): object
     // Get the properties of the current URL location
     //
     // Returns:
@@ -22694,7 +22954,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
     };
   }
 
-  // Function: url.setHash(hash)
+  // Function: sandbox.url.setHash(hash)
   // Jump to a new local location by replacing the hash part of the URL.
   //
   // This method is used for local navigation, and ensures, in collaboration
@@ -22707,7 +22967,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
   // Note: setHash is an alias for lb.base.history.setHash
 
   function onHashChange(callback){
-    // Function: url.onHashChange(callback)
+    // Function: sandbox.url.onHashChange(callback)
     // Set a listener to observe changes in local part of the URL.
     // Calling this method with a new callback will replace the listener
     // previously set. Calling onHashChange(null) will remove the current
@@ -22727,7 +22987,52 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
     }
   }
 
-  // Function: utils.has(object,property[,...]): boolean
+  
+
+  sandbox.url = {
+    getLocation: getLocation,
+    setHash: setHash,
+    onHashChange: onHashChange
+  };
+};
+/*
+ * Namespace: lb.core.plugins.utils
+ * Utilities Plugin for the Sandbox API
+ *
+ * Author:
+ * Eric Bréchemier <legalbox@eric.brechemier.name>
+ *
+ * Copyright:
+ * Legal-Box SAS (c) 2010-2011, All Rights Reserved
+ *
+ * License:
+ * BSD License
+ * http://creativecommons.org/licenses/BSD/
+ *
+ * Version:
+ * 2011-04-26
+ */
+/*requires lb.core.plugins.js */
+/*jslint white:false, plusplus:false */
+/*global lb, window */
+lb.core.plugins.utils = function(sandbox) {
+  // Function: utils(sandbox)
+  // Define methods in the 'utils' property of given sandbox.
+  //
+  // Parameters:
+  //   sandbox - object, the sandbox instance to enrich with utility methods
+
+  // Declare aliases
+  var /*requires lb.base.object.js */
+      has = lb.base.object.has,
+      /*requires lb.base.type.js */
+      is = lb.base.type.is,
+      /*requires lb.base.string.js */
+      trim = lb.base.string.trim,
+      /*requires lb.base.log.js */
+      log = lb.base.log.print;
+
+  // Function: sandbox.utils.has(object,property[,...]): boolean
   // Check whether an object property is present and not null nor undefined.
   //
   // A chain of nested properties may be checked by providing more than two
@@ -22768,7 +23073,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
 
   // Note: is is an alias for lb.base.object.has
 
-  // Function: utils.is([...,]value[,type]): boolean
+  // Function: sandbox.utils.is([...,]value[,type]): boolean
   // Check the type of a value, possibly nested in sub-properties.
   //
   // The method may be called with a single argument to check that the value
@@ -22850,7 +23155,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
   // Note: is is an alias for lb.base.type.is
 
   function getTimestamp(){
-    // Function: utils.getTimestamp(): number
+    // Function: sandbox.utils.getTimestamp(): number
     // Get current timestamp, in milliseconds.
     //
     // Returns:
@@ -22861,7 +23166,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
   }
 
   function setTimeout(callback, delay){
-    // Function: utils.setTimeout(callback,delay): number
+    // Function: sandbox.utils.setTimeout(callback,delay): number
     // Plan the delayed execution of a callback function.
     //
     // Parameters:
@@ -22882,7 +23187,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
   }
 
   function clearTimeout(timeoutId){
-    // Function: utils.clearTimeout(timeoutId)
+    // Function: sandbox.utils.clearTimeout(timeoutId)
     // Cancels the planned execution of a callback function.
     //
     // Parameter:
@@ -22892,7 +23197,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
     window.clearTimeout(timeoutId);
   }
 
-  // Function: utils.trim(string): string
+  // Function: sandbox.utils.trim(string): string
   // Remove leading and trailing whitespace from a string.
   //
   // Parameter:
@@ -22903,7 +23208,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
 
   // Note: trim is an alias for lb.base.string.trim
 
-  // Function: utils.log(message)
+  // Function: sandbox.utils.log(message)
   // Log a message.
   //
   // Log messages will be printed in the browser console, when available,
@@ -22916,7 +23221,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
   // Note: log is an alias for lb.base.log.print
 
   function confirm(message){
-    // Function: utils.confirm(message): boolean
+    // Function: sandbox.utils.confirm(message): boolean
     // Open a confirmation (OK/Cancel) dialog.
     //
     // Parameter:
@@ -22928,48 +23233,7 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
     return window.confirm(message);
   }
 
-  // Public methods
-  this.getId = getId;
-  this.getBox = getBox;
-  this.isInBox = isInBox;
-  this.css = {
-    getClasses: getClasses,
-    addClass: addClass,
-    removeClass: removeClass
-  };
-  this.dom = {
-    $:$,
-    element: element,
-    fireEvent: fireEvent,
-    cancelEvent: cancelEvent,
-    getListeners: getListeners,
-    addListener: addListener,
-    removeListener: removeListener,
-    removeAllListeners: removeAllListeners
-  };
-  this.events = {
-    subscribe: subscribe,
-    unsubscribe: unsubscribe,
-    publish: publisher.publish
-  };
-  this.i18n = {
-    getLanguageList: i18nData.getLanguageCodes,
-    getSelectedLanguage: i18nData.getDefaultLanguageCode,
-    selectLanguage: selectLanguage,
-    addLanguageProperties: i18nData.addLanguageProperties,
-    get: i18nData.get,
-    getString: i18nTemplate.getString,
-    filterHtml: i18nTemplate.filterHtml
-  };
-  this.server = {
-    send: send
-  };
-  this.url = {
-    getLocation: getLocation,
-    setHash: setHash,
-    onHashChange: onHashChange
-  };
-  this.utils = {
+  sandbox.utils = {
     has: has,
     is: is,
     getTimestamp: getTimestamp,
@@ -22980,6 +23244,119 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
     confirm: confirm
   };
 };
+/*
+ * Namespace: lb.core.plugins.builder
+ * Sandbox Builder, associate plugins to define the different parts of the API
+ *
+ * This is the default builder used in Core Module to create a new instance
+ * of the Sandbox for a new module. It loads all plugins defined in the
+ * framework in the namespace lb.core.plugins.
+ *
+ * The default Sandbox Builder is intended to be replaced with a custom builder
+ * to add methods to the Sandbox API or replace methods to implement a
+ * different behavior.
+ *
+ * How to customize the sandbox API:
+ * A custom builder is an object with a method buildSandbox(id) which returns
+ * a new instance of the Sandbox.
+ *
+ * The custom builder can be configured by calling setOptions on the
+ * application core:
+ * | lb.core.application.setOptions({ lbBuilder: your.customBuilder })
+ *
+ * To develop your own custom builder, you can start by creating a new module
+ * as a closure assigned to your own namespace. You can then define the method
+ * buildSandbox(id), calling the same method in the default Sandbox Builder
+ * and returning the resulting Sandbox. You may now customize the Sandbox
+ * instance returned by the default Sandbox Builder before returning it.
+ *
+ * The default Sandbox Builder uses plugins, located in lb.core.plugins, to
+ * customize the bare instance of Sandbox resulting from a call to the Sandbox
+ * constructor. A plugin is a function which takes the sandbox as parameter
+ * and customizes it by adding, removing, or replacing methods. Each plugin
+ * defined in lb.core.plugins adds methods to the Sandbox grouped in a property
+ * named after the plugin, e.g. sandbox.css for the plugin lb.core.plugins.css.
+ *
+ * Author:
+ * Eric Bréchemier <legalbox@eric.brechemier.name>
+ *
+ * Copyright:
+ * Legal-Box SAS (c) 2010-2011, All Rights Reserved
+ *
+ * License:
+ * BSD License
+ * http://creativecommons.org/licenses/BSD/
+ *
+ * Version:
+ * 2011-04-26
+ */
+/*requires lb.core.plugins.js */
+/*jslint white:false, plusplus:false */
+/*global lb */
+lb.core.plugins.builder = (function() {
+  // Builder of
+  // Closure for lb.core.plugins.builder module
+
+  // Declare aliases
+  var /*requires lb.base.object.js */
+      has = lb.base.object.has,
+      /*requires lb.core.Sandbox.js */
+      Sandbox = lb.core.Sandbox,
+      /*requires lb.core.plugins.js */
+      plugins = lb.core.plugins,
+      /*requires lb.core.plugins.css.js */
+      css = plugins.css,
+      /*requires lb.core.plugins.dom.js */
+      dom = plugins.dom,
+      /*requires lb.core.plugins.events.js */
+      events = plugins.events,
+      /*requires lb.core.plugins.i18n.js */
+      i18n = plugins.i18n,
+      /*requires lb.core.plugins.server.js */
+      server = plugins.server,
+      /*requires lb.core.plugins.url.js */
+      url = plugins.url,
+      /*requires lb.core.plugins.utils.js */
+      utils = plugins.utils;
+
+  function buildSandbox(id){
+    // Function: buildSandbox(id)
+    // Build a new instance of Sandbox from parts defined by plugins.
+    //
+    // Parameter:
+    //   id - string, the identifier of the module for whom the Sandbox
+    //        instance is intended.
+    //
+    // Returns:
+    //   * null, in case the id argument is null or missing
+    //   * object, a new instance of the Sandbox otherwise
+    //
+    // Note:
+    // The module identifier may be used to customize the Sandbox methods
+    // included, e.g. to restrict usage of AJAX methods to a specific Data
+    // module, or to provide DOM manipulation methods only to User Interface
+    // modules and not to Data modules. There is no such customization done in
+    // the default Sandbox Builder, which always returns similar instances of
+    // Sandbox with the same set of methods.
+    if ( !has(id) ){
+      return null;
+    }
+
+    var sandbox = new Sandbox(id);
+    css(sandbox);
+    dom(sandbox);
+    events(sandbox);
+    i18n(sandbox);
+    server(sandbox);
+    url(sandbox);
+    utils(sandbox);
+    return sandbox;
+  }
+
+  return { // public API
+    buildSandbox: buildSandbox
+  };
+}());
 /*
  * Namespace: lb.core.Module
  * Core Module of Legal Box Scalable JavaScript Application
@@ -23001,13 +23378,12 @@ lb.core.Sandbox = lb.core.Sandbox || function (id){
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-04-12
+ * 2011-04-22
  */
 /*requires lb.core.js */
 /*jslint white:false, plusplus:false */
 /*global lb */
-// preserve the module, if already loaded
-lb.core.Module = lb.core.Module || function (id, creator){
+lb.core.Module = function (id, creator){
   // Function: new Module(id,creator): Module
   // Constructor of a new Core Module.
   //
@@ -23015,21 +23391,27 @@ lb.core.Module = lb.core.Module || function (id, creator){
   //   id - string, the module identifier, e.g. 'lb.ui.myModule'
   //   creator - function, a creator function returning a custom module.
   //             A new Sandbox instance will be provided as parameter.
-  //             creator functions for User Interface modules should be
-  //             registered in the namespace 'lb.ui', e.g. lb.ui.myModule while
-  //             creator functions for Data Model modules should be registered
-  //             in the namespace 'lb.data', e.g. lb.data.myModule.
   //
   // Returns:
   //   object, the new instance of Module
+  //
+  // Notes:
+  // Creator functions for User Interface modules may be registered in the
+  // namespace 'lb.ui', e.g. lb.ui.myModule while creator functions for Data
+  // modules, with no user interface,  may be registered in the namespace
+  // 'lb.data', e.g. lb.data.myModule.
+  //
+  // The sandbox API can be customized by configuring a different builder
+  // to load additional or alternative plugins. See <lb.core.plugins.builder>
+  // for details.
 
   // Define aliases
   var /*requires lb.base.type.js */
       is = lb.base.type.is,
       /*requires lb.base.log.js */
       log = lb.base.log.print,
-      /*requires lb.core.Sandbox.js */
-      Sandbox = lb.core.Sandbox,
+      /*requires lb.core.plugins.builder.js */
+      defaultBuilder = lb.core.plugins.builder,
       /*requires lb.base.config.js */
       getOption = lb.base.config.getOption,
       /*requires lb.base.dom.js */
@@ -23044,7 +23426,7 @@ lb.core.Module = lb.core.Module || function (id, creator){
       sandbox;
 
   try {
-    sandbox = new Sandbox(id);
+    sandbox = getOption('lbBuilder',defaultBuilder).buildSandbox(id);
     module = creator(sandbox);
   } catch(creationError){
     log('ERROR: failed to create module "'+id+
@@ -23155,13 +23537,12 @@ lb.core.Module = lb.core.Module || function (id, creator){
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-01-24
+ * 2011-04-21
  */
 /*requires lb.core.js */
 /*jslint white:false, plusplus:false */
 /*global lb, window */
-// preserve the module, if already loaded
-lb.core.application = lb.core.application || (function() {
+lb.core.application = (function() {
   // Builder of
   // Closure for lb.core.application module
 
@@ -23191,8 +23572,25 @@ lb.core.application = lb.core.application || (function() {
   // Function: setOptions(options)
   // Configure a set of option properties.
   //
-  // Note:
-  // Previous properties are preserved unless overwritten by new properties.
+  // Each new option is added to the configuration, replacing any existing
+  // value of the same name. Options previously set are otherwise preserved.
+  //
+  // Supported Properties:
+  //   lbBuilder - builder used in <lb.core.Module> to create an instance of
+  //               the Sandbox for the new module from a selection of plugins
+  //               which define different parts of the Sandbox API.
+  //               Defaults to <lb.core.plugins.builder>, which creates a
+  //               Sandbox with all the plugins defined in the framework.
+  //               Use of a custom builder allows to customize the Sandbox
+  //               API by loading custom plugins besides or instead of the
+  //               plugins defined in the framework.
+  //   lbFactory - factory used in the Sandbox methods to create and destroy
+  //               DOM elements, DOM listeners and DOM events, and used in
+  //               lb.core.Module to "initialize" the box elements of a new
+  //               module. Defaults to <lb.base.dom.factory>. Use of a custom
+  //               factory allows to "initialize" the box by creating widgets
+  //               associated with DOM elements within which, for example,
+  //               carry particular CSS class names.
   //
   // Parameter:
   //   options - object, a hash of configuration properties.
@@ -23304,13 +23702,12 @@ lb.core.application = lb.core.application || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-01-05
+ * 2011-04-20
  */
 /*requires lb.js */
 /*jslint white:false, plusplus:false */
 /*global lb */
-// preserve the module, if already loaded
-lb.data = lb.data || (function() {
+lb.data = (function() {
   // Builder of
   // Closure for lb.data namespace
 
@@ -23334,13 +23731,12 @@ lb.data = lb.data || (function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-01-05
+ * 2011-04-20
  */
 /*requires lb.js */
 /*jslint white:false, plusplus:false */
 /*global lb */
-// preserve the module, if already loaded
-lb.ui = lb.ui || (function() {
+lb.ui = (function() {
   // Builder of
   // Closure for lb.ui namespace
 
