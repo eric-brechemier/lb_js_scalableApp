@@ -5,7 +5,7 @@ Title: Scalable JavaScript Application
 SubTitle: by Legal-Box
 
 Footer: Copyright (c) 2010-2011 Legal-Box SAS
-Timestamp: yyyy-dd-mm
+Timestamp: yyyy-mm-dd
 #   m     - One or two digit month.  January is "1"
 #   mm    - Always two digit month.  January is "01"
 #   mon   - Short month word.  January is "Jan"
@@ -16,6 +16,11 @@ Timestamp: yyyy-dd-mm
 #   yy    - Two digit year.  2006 is "06"
 #   yyyy  - Four digit year.  2006 is "2006"
 #   year  - Four digit year.  2006 is "2006"
+
+# These are indexes you deleted, so Natural Docs will not add them again
+# unless you remove them from this line.
+
+Don't Index: Constants
 
 
 # --------------------------------------------------------------------------
@@ -108,6 +113,5 @@ Group: Index  {
    Index: All
    Class Index: Modules
    Function Index: Methods
-   Constant Index: Constants
    }  # Group: Index
 
