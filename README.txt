@@ -9,14 +9,13 @@ LANGUAGES
 DESCRIPTION
 
   The Scalable JavaScript Application framework is a client-side library
-  developed by Legal-Box to create modular Web applications. It is based on
-  the Scalable JavaScript Application Architecture [1] by Nicholas Zakas.
+  used to create modular Web applications. It is based on the Scalable
+  JavaScript Application Architecture [1] by Nicholas Zakas.
 
 FIRST STEPS
 
   The design of the framework is described in Design Patterns for Scalable
-  JavaScript Application by Legal-Box [2], which you can find in the doc folder
-  of this project.
+  JavaScript Application [2], which you can find in doc/ folder of the project.
 
   After installing the required software (see the requirements section below),
   run Apache Ant in the build folder to generate the API documentation and the
@@ -45,7 +44,7 @@ REFERENCES
   [1] Scalable JavaScript Application Architecture, by Nicholas Zakas
   http://www.slideshare.net/nzakas/scalable-javascript-application-architecture
 
-  [2] Design Patterns for Scalable JavaScript Application by Legal-Box
+  [2] Design Patterns for Scalable JavaScript Application
   http://eric-brechemier.github.com/lb_js_scalableApp/doc/javascript-application-design-patterns.pdf
 
   [3] Semantic Versioning
@@ -58,8 +57,8 @@ REQUIREMENTS
 
   The following software is required for the build process which generates the
   API documentation, checks the syntax of source files and produces a combined
-  and minified version of the library for deployment. The versions that we use
-  in our development environment at Legal-Box are indicated in parenthesis.
+  and minified version of the library for deployment. The versions that I used
+  are indicated in parenthesis.
 
   * Apache Ant (1.8.0)
   http://ant.apache.org/
@@ -98,7 +97,7 @@ INCLUDED SOFTWARE
     Licensed under the Apache License, Version 2.0
     http://www.apache.org/licenses/LICENSE-2.0
     Parts of the library, in src/closure and test/closure,
-    with modifications by Legal-Box under the BSD License.
+    with modifications under the BSD License.
 
   * bezen.org JavaScript library CC-BY Eric Bréchemier
     http://bezen.org/javascript/
