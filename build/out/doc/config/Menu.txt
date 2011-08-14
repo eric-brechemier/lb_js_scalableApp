@@ -1,10 +1,12 @@
 Format: 1.4
 
 
-Title: Scalable JavaScript Application
-SubTitle: by Legal-Box
+Title: The Scalable JavaScript Application
 
-Footer: Copyright (c) 2010-2011 Legal-Box SAS
+# You can also add a sub-title to your menu like this:
+# SubTitle: [subtitle]
+
+Footer: Eric Bréchemier &amp;copy; 2011 &amp;mdash; Legal-Box SAS &amp;copy; 2010-2011
 Timestamp: yyyy-mm-dd
 #   m     - One or two digit month.  January is "1"
 #   mm    - Always two digit month.  January is "01"

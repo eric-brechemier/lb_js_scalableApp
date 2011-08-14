@@ -18,9 +18,10 @@
  * Reference:
  * http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition
  *
- * Author: Eric Bréchemier <legalbox@eric.brechemier.name>
+ * Author: Eric Bréchemier <github@eric.brechemier.name>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -28,9 +29,8 @@
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-07
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 (function(){
   // Builder of
@@ -39,7 +39,7 @@
   var undef,       // undefined value, do not trust global undefined
       cache = {};  // hash of module id => exports
 
-  function define(){
+  function define(arg0,arg1,arg2){
     // Function: define('amd/define',[id,] [dependencies,] factory)
     // Define a module.
     //
@@ -82,6 +82,26 @@
         exports = {},
         result;
 
+    switch(arguments.length){
+      case 0:   // define()
+        return; // nothing to define
+      case 1:   // define(factory)
+        factory = arg0;
+        break;
+      case 2:
+        if (typeof arg0==='string'){  // define(id,factory)
+          id = arg0;
+        } else {                      // define(dependencies,factory)
+          dependencies = arg0;
+        }
+        factory = arg1;
+        break;
+      default: // define(id,dependencies,factory)
+        id = arg0;
+        dependencies = arg1;
+        factory = arg2;
+    }
+
     function fail(message){
       // (private) Function: fail(message)
       // Throw an Error including given message in the description.
@@ -89,7 +109,7 @@
       // Parameter:
       //   message - string, message to include in the error description
 
-      throw Error("Failed to load module id '"+id+"': "+message);
+      throw new Error("Failed to load module id '"+String(id)+"': "+message);
     }
 
     function getAbsoluteId(relativeId){
@@ -158,33 +178,13 @@
       // Returns:
       //   any, the exports of the module defined with given id
 
-      var absoluteId = getAbsoluteId(relativeId);
+      var absoluteId = getAbsoluteId(relativeId),
+          exports = cache[absoluteId];
 
-      var exports = cache[absoluteId];
       if (exports === undef){
         fail("Module not loaded yet: '"+absoluteId+"'");
       }
       return exports;
-    }
-
-    switch(arguments.length){
-      case 0:   // define()
-        return; // nothing to define
-      case 1:   // define(factory)
-        factory = arguments[0];
-        break;
-      case 2:
-        if (typeof arguments[0]==='string'){  // define(id,factory)
-          id = arguments[0];
-        } else {                              // define(dependencies,factory)
-          dependencies = arguments[0];
-        }
-        factory = arguments[1];
-        break;
-      default: // define(id,dependencies,factory)
-        id = arguments[0];
-        dependencies = arguments[1];
-        factory = arguments[2];
     }
 
     for (i=0, length=dependencies.length; i<length; i++){
@@ -210,8 +210,8 @@
       fail(e);
     }
 
-    if (id !== undef) {
-      cache[id] = result? result : exports;
+    if (typeof id === 'string') {
+      cache[id] = result || exports;
     }
   }
 
@@ -239,8 +239,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/base.js to goog.js
 // * moved global var COMPILED to goog.COMPILED, moved declaration after
 //   initialization of namespace object goog
@@ -287,7 +291,7 @@ define('closure/goog',function(){
   this.goog = this.goog || {}; // create global 'goog', preserving existing one
 
   /**
-   * @define {boolean} Overridden to true by the compiler when --closure_pass
+   * @const {boolean} Overridden to true by the compiler when --closure_pass
    *     or --mark_as_compiled is specified.
    */
   // LB: set to true to trigger deployment behaviors
@@ -302,7 +306,7 @@ define('closure/goog',function(){
 
 
   /**
-   * @define {boolean} DEBUG is provided as a convenience so that debugging code
+   * @const {boolean} DEBUG is provided as a convenience so that debugging code
    * that should not be included in a production js_binary can be easily stripped
    * by specifying --define goog.DEBUG=false to the JSCompiler. For example, most
    * toString() methods should be declared inside an "if (goog.DEBUG)" conditional
@@ -313,7 +317,7 @@ define('closure/goog',function(){
 
 
   /**
-   * @define {string} LOCALE defines the locale being used for compilation. It is
+   * @const {string} LOCALE defines the locale being used for compilation. It is
    * used to select locale specific data to be compiled in js binary. BUILD rule
    * can specify this value by "--define goog.LOCALE=<locale_name>" as JSCompiler
    * option.
@@ -551,7 +555,7 @@ define('closure/goog',function(){
 
 
   /**
-   * @define {boolean} Whether to enable the debug loader.
+   * @const {boolean} Whether to enable the debug loader.
    *
    * If enabled, a call to goog.require() will attempt to load the namespace by
    * appending a script tag to the DOM (if the namespace has been registered).
@@ -1804,8 +1808,12 @@ define('closure/goog',function(){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/disposable/disposable.js to goog.Disposable.js
 // * commented requirement for interface goog.disposable.IDisposable
 // * commented out conditional code that runs when ENABLE_MONITORING is true
@@ -1844,7 +1852,7 @@ define('closure/goog.Disposable',["./goog"], function(goog){
 
 
   /**
-   * @define {boolean} Whether to enable the monitoring of the goog.Disposable
+   * @const {boolean} Whether to enable the monitoring of the goog.Disposable
    *     instances. Switching on the monitoring is only recommended for debugging
    *     because it has a significant impact on performance and memory usage.
    *     If switched off, the monitoring code compiles down to 0 bytes.
@@ -1989,8 +1997,12 @@ define('closure/goog.Disposable',["./goog"], function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/array/array.js to goog.array.js
 // * commented all calls to goog.asserts and associated require
 // * wrapped code in a function in a call to define for dependency management
@@ -2010,7 +2022,7 @@ define('closure/goog.array',["./goog"], function(goog){
 
 
   /**
-   * @define {boolean} NATIVE_ARRAY_PROTOTYPES indicates whether the code should
+   * @const {boolean} NATIVE_ARRAY_PROTOTYPES indicates whether the code should
    * rely on Array.prototype functions, if available.
    *
    * The Array.prototype functions can be defined by external libraries like
@@ -3334,8 +3346,12 @@ define('closure/goog.array',["./goog"], function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/debug/errorhandlerweakdep.js to 
 //   goog.debug.errorHandlerWeakDep.js
 // * wrapped code in a function in a call to define for dependency management
@@ -3383,8 +3399,12 @@ define('closure/goog.debug.errorHandlerWeakDep',["./goog"], function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/string/string.js to goog.string.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -4625,8 +4645,12 @@ define('closure/goog.string',["./goog"], function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/useragent/useragent.js to goog.userAgent.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -4647,32 +4671,32 @@ define('closure/goog.userAgent',["./goog","./goog.string"], function(goog){
 
 
   /**
-   * @define {boolean} Whether we know at compile-time that the browser is IE.
+   * @const {boolean} Whether we know at compile-time that the browser is IE.
    */
   goog.userAgent.ASSUME_IE = false;
 
 
   /**
-   * @define {boolean} Whether we know at compile-time that the browser is GECKO.
+   * @const {boolean} Whether we know at compile-time that the browser is GECKO.
    */
   goog.userAgent.ASSUME_GECKO = false;
 
 
   /**
-   * @define {boolean} Whether we know at compile-time that the browser is WEBKIT.
+   * @const {boolean} Whether we know at compile-time that the browser is WEBKIT.
    */
   goog.userAgent.ASSUME_WEBKIT = false;
 
 
   /**
-   * @define {boolean} Whether we know at compile-time that the browser is a
+   * @const {boolean} Whether we know at compile-time that the browser is a
    *     mobile device running WebKit e.g. iPhone or Android.
    */
   goog.userAgent.ASSUME_MOBILE_WEBKIT = false;
 
 
   /**
-   * @define {boolean} Whether we know at compile-time that the browser is OPERA.
+   * @const {boolean} Whether we know at compile-time that the browser is OPERA.
    */
   goog.userAgent.ASSUME_OPERA = false;
 
@@ -4859,28 +4883,28 @@ define('closure/goog.userAgent',["./goog","./goog.string"], function(goog){
 
 
   /**
-   * @define {boolean} Whether the user agent is running on a Macintosh operating
+   * @const {boolean} Whether the user agent is running on a Macintosh operating
    *     system.
    */
   goog.userAgent.ASSUME_MAC = false;
 
 
   /**
-   * @define {boolean} Whether the user agent is running on a Windows operating
+   * @const {boolean} Whether the user agent is running on a Windows operating
    *     system.
    */
   goog.userAgent.ASSUME_WINDOWS = false;
 
 
   /**
-   * @define {boolean} Whether the user agent is running on a Linux operating
+   * @const {boolean} Whether the user agent is running on a Linux operating
    *     system.
    */
   goog.userAgent.ASSUME_LINUX = false;
 
 
   /**
-   * @define {boolean} Whether the user agent is running on a X11 windowing
+   * @const {boolean} Whether the user agent is running on a X11 windowing
    *     system.
    */
   goog.userAgent.ASSUME_X11 = false;
@@ -5126,8 +5150,12 @@ define('closure/goog.userAgent',["./goog","./goog.string"], function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/events/browserfeature.js to
 //   goog.events.BrowserFeature.js
 // * wrapped code in a function in a call to define for dependency management
@@ -5179,8 +5207,12 @@ define('closure/goog.events.BrowserFeature',["./goog","./goog.userAgent"], funct
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/events/event.js to goog.events.Event.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -5311,8 +5343,12 @@ define('closure/goog.events.Event',["./goog","./goog.Disposable"], function(goog
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/events/eventtype.js to goog.events.EventType.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -5427,8 +5463,12 @@ define('closure/goog.events.EventType',["./goog","./goog.userAgent"], function(g
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/reflect/reflect.js to goog.reflect.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -5505,8 +5545,12 @@ define('closure/goog.reflect',["./goog"], function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/events/browserevent.js to
 //   goog.events.BrowserEvent.js
 // * wrapped code in a function in a call to define for dependency management
@@ -5927,8 +5971,12 @@ define('closure/goog.events.BrowserEvent',["./goog","./goog.events.BrowserFeatur
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/events/eventwrapper.js to
 //   goog.events.EventWrapper.js
 // * wrapped code in a function in a call to define for dependency management
@@ -6006,8 +6054,12 @@ define('closure/goog.events.EventWrapper',["./goog"], function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/events/listener.js to goog.events.Listener.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -6177,8 +6229,12 @@ define('closure/goog.events.Listener',["./goog"], function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/structs/simplepool.js to goog.structs.SimplePool.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -6391,8 +6447,12 @@ define('closure/goog.structs.SimplePool',["./goog","./goog.Disposable"], functio
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/useragent/jscript.js to goog.userAgent.jscript.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -6410,7 +6470,7 @@ define('closure/goog.userAgent.jscript',["./goog","./goog.string"], function(goo
 
 
   /**
-   * @define {boolean} True if it is known at compile time that the runtime
+   * @const {boolean} True if it is known at compile time that the runtime
    *     environment will not be using JScript.
    */
   goog.userAgent.jscript.ASSUME_NO_JSCRIPT = false;
@@ -6495,8 +6555,12 @@ define('closure/goog.userAgent.jscript',["./goog","./goog.string"], function(goo
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2009-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/events/pools.js to goog.events.pools.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -6524,7 +6588,7 @@ define('closure/goog.events.pools',["./goog","./goog.events.BrowserEvent","./goo
 
 
   /**
-   * @define {boolean} Whether to always assume the garbage collector is good.
+   * @const {boolean} Whether to always assume the garbage collector is good.
    */
   goog.events.ASSUME_GOOD_GC = false;
 
@@ -6856,8 +6920,12 @@ define('closure/goog.events.pools',["./goog","./goog.events.BrowserEvent","./goo
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/object/object.js to goog.object.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -7451,8 +7519,12 @@ define('closure/goog.object',["./goog"], function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/events/events.js to goog.events.js
 // * commented use and requirement of goog.debug.entryPointRegistry
 // * wrapped code in a function in a call to define for dependency management
@@ -8567,8 +8639,12 @@ define('closure/goog.events',["./goog","./goog.array","./goog.debug.errorHandler
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/events/eventtarget.js to goog.events.EventTarget.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -8773,8 +8849,12 @@ define('closure/goog.events.EventTarget',["./goog","./goog.Disposable","./goog.e
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/timer/timer.js to goog.Timer.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -9068,8 +9148,12 @@ define('closure/goog.Timer',["./goog","./goog.events.EventTarget"], function(goo
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/dom/browserfeature.js to goog.dom.BrowserFeature.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -9137,8 +9221,12 @@ define('closure/goog.dom.BrowserFeature',["./goog","./goog.userAgent"], function
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/dom/tagname.js to goog.dom.TagName.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -9269,8 +9357,12 @@ define('closure/goog.dom.TagName',["./goog"], function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/dom/classes.js to goog.dom.classes.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -9511,8 +9603,12 @@ define('closure/goog.dom.classes',["./goog","./goog.array"], function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/math/coordinate.js to goog.math.Coordinate.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -9657,8 +9753,12 @@ define('closure/goog.math.Coordinate',["./goog"], function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/math/size.js to goog.math.Size.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -9868,8 +9968,12 @@ define('closure/goog.math.Size',["./goog"], function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/dom/classes.js to goog.dom.classes.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -9911,14 +10015,14 @@ define('closure/goog.dom',["./goog","./goog.array","./goog.dom.BrowserFeature",
 
 
   /**
-   * @define {boolean} Whether we know at compile time that the browser is in
+   * @const {boolean} Whether we know at compile time that the browser is in
    * quirks mode.
    */
   goog.dom.ASSUME_QUIRKS_MODE = false;
 
 
   /**
-   * @define {boolean} Whether we know at compile time that the browser is in
+   * @const {boolean} Whether we know at compile time that the browser is in
    * standards compliance mode.
    */
   goog.dom.ASSUME_STANDARDS_MODE = false;
@@ -12364,8 +12468,12 @@ define('closure/goog.dom',["./goog","./goog.array","./goog.dom.BrowserFeature",
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/events/eventhandler.js to
 //   goog.events.EventHandler.js
 // * wrapped code in a function in a call to define for dependency management
@@ -12725,8 +12833,12 @@ define('closure/goog.events.EventHandler',["./goog","./goog.Disposable","./goog.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/history/eventtype.js to goog.history.EventType.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -12765,8 +12877,12 @@ define('closure/goog.history.EventType',["./goog"], function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/history/event.js to goog.history.Event.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -12830,8 +12946,12 @@ define('closure/goog.history.Event',["./goog","./goog.events.Event",
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/history/history.js to
 //   goog.History.js
 // * bug fix: avoid duplicate firing of initial hash in IE
@@ -13869,8 +13989,12 @@ define('closure/goog.History',["./goog","./goog.Timer","./goog.dom","./goog.even
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/structs/structs.js to goog.structs.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -14219,8 +14343,12 @@ define('closure/goog.structs',["./goog","./goog.array","./goog.object"], functio
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/iter/iter.js to goog.iter.js
 // * commented use and requirement of goog.asserts
 // * wrapped code in a function in a call to define for dependency management
@@ -14860,8 +14988,12 @@ define('closure/goog.iter',["./goog","./goog.array"], function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/structs/map.js to goog.structs.Map.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -14878,6 +15010,8 @@ define('closure/goog.iter',["./goog","./goog.array"], function(goog){
 
 define('closure/goog.structs.Map',["./goog","./goog.iter","./goog.object","./goog.structs"],
 function(goog){
+
+  goog.provide('goog.structs.Map');
 
   goog.require('goog.iter.Iterator');
   goog.require('goog.iter.StopIteration');
@@ -15315,8 +15449,12 @@ function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/structs/set.js to goog.structs.Set.js
 // * commented requirement for interface goog.structs.Collection.js
 // * wrapped code in a function in a call to define for dependency management
@@ -15580,8 +15718,12 @@ define('closure/goog.structs.Set',["./goog","./goog.structs","./goog.structs.Map
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/debug/debug.js to goog.debug.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -16043,8 +16185,12 @@ define('closure/goog.debug',["./goog","./goog.array","./goog.string",
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/debug/logrecord.js to goog.debug.LogRecord.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -16137,7 +16283,7 @@ define('closure/goog.debug.LogRecord',["./goog"], function(goog){
 
 
   /**
-   * @define {boolean} Whether to enable log sequence numbers.
+   * @const {boolean} Whether to enable log sequence numbers.
    */
   goog.debug.LogRecord.ENABLE_SEQUENCE_NUMBERS = true;
 
@@ -16323,8 +16469,12 @@ define('closure/goog.debug.LogRecord',["./goog"], function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/debug/logbuffer.js to goog.debug.LogBuffer.js
 // * commented all assertions and removed requirement
 // * wrapped code in a function in a call to define for dependency management
@@ -16378,7 +16528,7 @@ define('closure/goog.debug.LogBuffer',["./goog","./goog.debug.LogRecord"], funct
 
 
   /**
-   * @define {number} The number of log records to buffer. 0 means disable
+   * @const {number} The number of log records to buffer. 0 means disable
    * buffering.
    */
   goog.debug.LogBuffer.CAPACITY = 0;
@@ -16482,8 +16632,12 @@ define('closure/goog.debug.LogBuffer',["./goog","./goog.debug.LogRecord"], funct
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/debug/logger.js to goog.debug.Logger.js
 // * commented out all assertions and removed requirement
 // * set goog.debug.Logger.ENABLE_HIERARCHY to false and commented out
@@ -16575,7 +16729,7 @@ define('closure/goog.debug.Logger',["./goog","./goog.array","./goog.debug",
 
 
   /**
-   * @define {boolean} Toggles whether loggers other than the root logger can have
+   * @const {boolean} Toggles whether loggers other than the root logger can have
    *     log handlers attached to them and whether they can have their log level
    *     set. Logging is a bit faster when this is set to false.
    */
@@ -17314,8 +17468,12 @@ define('closure/goog.debug.Logger',["./goog","./goog.array","./goog.debug",
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/debug/relativetimeprovider.js to 
 //   goog.debug.RelativeTimeProvider.js
 // * wrapped code in a function in a call to define for dependency management
@@ -17408,8 +17566,12 @@ define('closure/goog.debug.RelativeTimeProvider',["./goog"], function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/debug/formatter.js to goog.debug.Formatter.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -17733,8 +17895,12 @@ define('closure/goog.debug.Formatter',["./goog","./goog.debug.RelativeTimeProvid
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/debug/console.js to goog.debug.Console.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -17930,8 +18096,12 @@ define('closure/goog.debug.Console',["./goog","./goog.debug.Logger","./goog.debu
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/json/json.js to goog.json.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -18242,8 +18412,12 @@ define('closure/goog.json',["./goog"], function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/net/errorcode.js to goog.net.ErrorCode.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -18383,8 +18557,12 @@ define('closure/goog.net.ErrorCode',["./goog"], function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/net/eventtype.js to goog.net.EventType.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -18430,8 +18608,12 @@ define('closure/goog.net.EventType',["./goog"], function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/net/httpstatus.js to goog.net.HttpStatus.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -18525,8 +18707,12 @@ define('closure/goog.net.HttpStatus',["./goog"], function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/net/xmlhttpfactory.js to goog.net.XmlHttpFactory.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -18600,8 +18786,12 @@ define('closure/goog.net.XmlHttpFactory',["./goog"], function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/net/wrapperxmlhttpfactory.js to
 //   goog.net.WrapperXmlHttpFactory.js
 // * wrapped code in a function in a call to define for dependency management
@@ -18679,8 +18869,12 @@ define('closure/goog.net.WrapperXmlHttpFactory',["./goog","./goog.net.XmlHttpFac
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/net/xmlhttp.js to goog.net.XmlHttp.js
 // * commented undefined expression without assignment
 // * wrapped code in a function in a call to define for dependency management
@@ -18908,8 +19102,12 @@ define('closure/goog.net.XmlHttp',["./goog","./goog.net.WrapperXmlHttpFactory",
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file goog/net/xhrmonitor.js to goog.net.xhrMonitor.js
 // * wrapped code in a function in a call to define for dependency management
 //   using requireJS
@@ -19174,8 +19372,12 @@ define('closure/goog.net.xhrMonitor',["./goog","./goog.array","./goog.debug.Logg
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/uri/utils.js to goog.uri.utils.js
 // * commented all calls to goog.asserts and associated require
 // * wrapped code in a function in a call to define for dependency management
@@ -20163,8 +20365,12 @@ define('closure/goog.uri.utils',["./goog","./goog.string"], function(goog){
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/net/xhrio.js to goog.net.XhrIo.js
 // * commented use of and require call for goog.debug.entryPointRegistry
 // * wrapped code in a function in a call to define for dependency management
@@ -21267,10 +21473,11 @@ define('closure/goog.net.XhrIo',["./goog","./goog.Timer","./goog.debug.Logger",
  * Root of Legal Box Scalable JavaScript Application
  *
  * Authors:
- *   o Eric Bréchemier <legalbox@eric.brechemier.name>
+ *   o Eric Bréchemier <github@eric.brechemier.name>
  *   o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -21278,9 +21485,8 @@ define('closure/goog.net.XhrIo',["./goog","./goog.Timer","./goog.debug.Logger",
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-05
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define, window */
 define('lb/lb',function() {
 
@@ -21303,10 +21509,11 @@ define('lb/lb',function() {
  * Adapter Modules for Base JavaScript Library
  *
  * Authors:
- *   o Eric Bréchemier <legalbox@eric.brechemier.name>
+ *   o Eric Bréchemier <github@eric.brechemier.name>
  *   o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -21314,9 +21521,8 @@ define('lb/lb',function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.base',[
     "./lb"
@@ -21338,10 +21544,11 @@ define('lb/lb.base',[
  * JSON (JavaScript Object Notation) Adapter Module for Base Library
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -21349,9 +21556,8 @@ define('lb/lb.base',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.base.json',[
     "./lb.base",
@@ -21405,10 +21611,11 @@ define('lb/lb.base.json',[
  * Logging Adapter Module for Base Library
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -21416,9 +21623,8 @@ define('lb/lb.base.json',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.base.log',[
     "./lb.base",
@@ -21474,10 +21680,11 @@ define('lb/lb.base.log',[
  * AJAX (Asynchronous JavaScript And XML) Adapter Module for Base Library
  *
  * Authors:
- *   o Eric Bréchemier <legalbox@eric.brechemier.name>
+ *   o Eric Bréchemier <github@eric.brechemier.name>
  *   o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -21485,9 +21692,8 @@ define('lb/lb.base.log',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.base.ajax',[
     "./lb.base",
@@ -21552,10 +21758,11 @@ define('lb/lb.base.ajax',[
  * Array Adapter Module for Base Library
  *
  * Authors:
- *   o Eric Bréchemier <legalbox@eric.brechemier.name>
+ *   o Eric Bréchemier <github@eric.brechemier.name>
  *   o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -21563,9 +21770,8 @@ define('lb/lb.base.ajax',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.base.array',[
     "./lb.base",
@@ -21652,10 +21858,11 @@ define('lb/lb.base.array',[
  * Utility method for type checking.
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2011, All Rights Reserved
  *
  * License:
@@ -21663,9 +21870,8 @@ define('lb/lb.base.array',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.base.type',[
     "./lb.base"
@@ -21821,10 +22027,11 @@ define('lb/lb.base.type',[
  * Object Adapter Module for Base Library
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -21832,9 +22039,8 @@ define('lb/lb.base.type',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.base.object',[
     "./lb.base",
@@ -21954,10 +22160,11 @@ define('lb/lb.base.object',[
  * getOption() to retrieve a single value.
  *
  * Authors:
- *   o Eric Bréchemier <legalbox@eric.brechemier.name>
+ *   o Eric Bréchemier <github@eric.brechemier.name>
  *   o Marc delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -21965,9 +22172,8 @@ define('lb/lb.base.object',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.base.config',[
     "./lb.base",
@@ -22053,10 +22259,11 @@ define('lb/lb.base.config',[
  * DOM (Document Object Model) Adapter Module for Base Library
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -22064,9 +22271,8 @@ define('lb/lb.base.config',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.base.dom',[
     "./lb.base",
@@ -22183,10 +22389,11 @@ define('lb/lb.base.dom',[
  * leaks in IE.
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -22194,9 +22401,8 @@ define('lb/lb.base.dom',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 
 define('lb/lb.base.dom.Listener',[
@@ -22317,10 +22523,11 @@ define('lb/lb.base.dom.Listener',[
  * Base Library
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -22328,9 +22535,8 @@ define('lb/lb.base.dom.Listener',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.base.dom.css',[
     "./lb.base.dom",
@@ -22438,10 +22644,11 @@ define('lb/lb.base.dom.css',[
  * o <initElement(element)>
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -22449,9 +22656,8 @@ define('lb/lb.base.dom.css',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.base.dom.factory',[
     "./lb.base.dom",
@@ -22711,10 +22917,11 @@ define('lb/lb.base.dom.factory',[
  *     http://msdn.microsoft.com/en-us/library/ms537656%28VS.85%29.aspx
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -22722,9 +22929,8 @@ define('lb/lb.base.dom.factory',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define, window, document */
 define('lb/lb.base.history',[
     "./lb.base",
@@ -22999,10 +23205,11 @@ define('lb/lb.base.history',[
  * codes is managed in <lb.base.i18n.data>.
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -23010,9 +23217,8 @@ define('lb/lb.base.history',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define, navigator, document */
 define('lb/lb.base.i18n',[
     "./lb.base",
@@ -23282,10 +23488,11 @@ define('lb/lb.base.i18n',[
  * by getLanguageCodes(). It is initially empty.
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -23293,9 +23500,8 @@ define('lb/lb.base.i18n',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.base.i18n.data',[
     "./lb.base.i18n",
@@ -23528,10 +23734,11 @@ define('lb/lb.base.i18n.data',[
  * String Adapter Module for Base Library
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -23539,9 +23746,8 @@ define('lb/lb.base.i18n.data',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.base.string',[
     "./lb.base",
@@ -23586,10 +23792,11 @@ define('lb/lb.base.string',[
  * as filters to modify the input. See applyFilters() for details.
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -23597,9 +23804,8 @@ define('lb/lb.base.string',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.base.template',[
     "./lb.base",
@@ -23736,10 +23942,11 @@ define('lb/lb.base.template',[
  * values for the replacement.
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -23747,9 +23954,8 @@ define('lb/lb.base.template',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.base.template.string',[
     "./lb.base.template",
@@ -23910,10 +24116,11 @@ define('lb/lb.base.template.string',[
  * node should be cloned before HTML filters are applied.
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -23921,9 +24128,8 @@ define('lb/lb.base.template.string',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define, window */
 define('lb/lb.base.template.html',[
     "./lb.base.template",
@@ -24017,7 +24223,7 @@ define('lb/lb.base.template.html',[
         } catch ( childNodeFilterError ) {
           log(
             'Failed to apply HTML filters to child node '+childNodes[i]+
-            ' in position '+(i+1)+
+            ' in position '+String(i+1)+
             ' of element '+node.nodeName+ ( node.id? '#'+node.id :
             (node.className?' class="'+node.className+'"':'') )+
             ': '+childNodeFilterError
@@ -24177,10 +24383,11 @@ define('lb/lb.base.template.html',[
  *   o <withValuesFromDataOrLanguageProperties([data[,languageCode]]): function>
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -24188,9 +24395,8 @@ define('lb/lb.base.template.html',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.base.template.i18n',[
     "./lb.base.template",
@@ -24577,10 +24783,11 @@ define('lb/lb.base.template.i18n',[
  * Core Modules for Legal Box Scalable JavaScript Application
  *
  * Authors:
- *   o Eric Bréchemier <legalbox@eric.brechemier.name>
+ *   o Eric Bréchemier <github@eric.brechemier.name>
  *   o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -24588,9 +24795,8 @@ define('lb/lb.base.template.i18n',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-06
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.core',[
     "./lb"
@@ -24612,10 +24818,11 @@ define('lb/lb.core',[
  * Core Plugins which define API methods for the Sandbox.
  *
  * Authors:
- *   o Eric Bréchemier <legalbox@eric.brechemier.name>
+ *   o Eric Bréchemier <github@eric.brechemier.name>
  *   o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -24623,9 +24830,8 @@ define('lb/lb.core',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.core.plugins',[
     "./lb.core"
@@ -24711,10 +24917,11 @@ define('lb/lb.core.plugins',[
  * alternative plugins. See <lb.core.plugins.builder> for details.
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -24722,9 +24929,8 @@ define('lb/lb.core.plugins',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define, document, window */
 define('lb/lb.core.Sandbox',[
     "./lb.core",
@@ -24872,10 +25078,11 @@ define('lb/lb.core.Sandbox',[
  * Cascading Style Sheets Plugin for the Sandbox API
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -24883,9 +25090,8 @@ define('lb/lb.core.Sandbox',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-05
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.core.plugins.css',[
     "./lb.core.plugins",
@@ -24995,10 +25201,11 @@ define('lb/lb.core.plugins.css',[
  * Document Object Model Plugin for the Sandbox API
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -25006,9 +25213,8 @@ define('lb/lb.core.plugins.css',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.core.plugins.dom',[
     "./lb.core.plugins",
@@ -25236,10 +25442,11 @@ define('lb/lb.core.plugins.dom',[
  * Core Events Modules based on a Publish/Subscribe Design Pattern.
  *
  * Authors:
- *   o Eric Bréchemier <legalbox@eric.brechemier.name>
+ *   o Eric Bréchemier <github@eric.brechemier.name>
  *   o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -25247,9 +25454,8 @@ define('lb/lb.core.plugins.dom',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.core.events',[
     "./lb.core"
@@ -25274,10 +25480,11 @@ define('lb/lb.core.events',[
  * every event published until they get removed from the list.
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -25285,9 +25492,8 @@ define('lb/lb.core.events',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.core.events.publisher',[
     "./lb.core.events",
@@ -25402,10 +25608,11 @@ define('lb/lb.core.events.publisher',[
  * triggered.
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@localbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -25413,9 +25620,8 @@ define('lb/lb.core.events.publisher',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.core.events.Subscriber',[
     "./lb.core.events",
@@ -25520,10 +25726,11 @@ define('lb/lb.core.events.Subscriber',[
  * Publish/Subscribe Plugin for the Sandbox API
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -25531,9 +25738,8 @@ define('lb/lb.core.events.Subscriber',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.core.plugins.events',[
     "./lb.core.plugins",
@@ -25640,10 +25846,11 @@ define('lb/lb.core.plugins.events',[
  * Internationalization Plugin for the Sandbox API
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -25651,9 +25858,8 @@ define('lb/lb.core.plugins.events',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.core.plugins.i18n',[
     "./lb.core.plugins",
@@ -25938,10 +26144,11 @@ define('lb/lb.core.plugins.i18n',[
  * Asynchronous Communication with a Remote Server Plugin for the Sandbox API
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -25949,9 +26156,8 @@ define('lb/lb.core.plugins.i18n',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-05
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.core.plugins.server',[
     "./lb.core.plugins",
@@ -25999,10 +26205,11 @@ define('lb/lb.core.plugins.server',[
  * Uniform Resource Locator Plugin for the Sandbox API
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -26010,9 +26217,8 @@ define('lb/lb.core.plugins.server',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-05
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define, window */
 define('lb/lb.core.plugins.url',[
     "./lb.core.plugins",
@@ -26122,10 +26328,11 @@ define('lb/lb.core.plugins.url',[
  * Utilities Plugin for the Sandbox API
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -26133,9 +26340,8 @@ define('lb/lb.core.plugins.url',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define, window */
 define('lb/lb.core.plugins.utils',[
     "./lb.core.plugins",
@@ -26316,7 +26522,9 @@ define('lb/lb.core.plugins.utils',[
           try {
             callback();
           } catch(e){
-            log('ERROR: failure in setTimeout for callback '+callback+'.');
+            log(
+              'ERROR: failure in setTimeout for callback '+String(callback)+'.'
+            );
           }
         },delay);
       }
@@ -26417,10 +26625,11 @@ define('lb/lb.core.plugins.utils',[
  * named after the plugin, e.g. sandbox.css for the plugin lb.core.plugins.css.
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -26428,9 +26637,8 @@ define('lb/lb.core.plugins.utils',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.core.plugins.builder',[
     "./lb.core.plugins",
@@ -26513,10 +26721,11 @@ define('lb/lb.core.plugins.builder',[
  * the Core Application.
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -26524,14 +26733,14 @@ define('lb/lb.core.plugins.builder',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-05
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.core.Module',[
     "./lb.core",
     "./lb.base.type",
     "./lb.base.log",
+    "./lb.base.dom.factory",
     "./lb.core.plugins.builder",
     "./lb.base.config",
     "./lb.base.dom"
@@ -26540,6 +26749,7 @@ define('lb/lb.core.Module',[
     lbCore,
     type,
     logModule,
+    defaultFactory,
     defaultBuilder,
     config,
     dom
@@ -26588,7 +26798,7 @@ define('lb/lb.core.Module',[
         module = creator(sandbox);
       } catch(creationError){
         log('ERROR: failed to create module "'+id+
-            '" using creator "'+creator+
+            '" using creator "'+String(creator)+
             '"; '+creationError);
       }
 
@@ -26662,7 +26872,7 @@ define('lb/lb.core.Module',[
           }
           sandbox.dom.removeAllListeners();
           var box = $( sandbox.getId() ),
-              factory = getOption('lbFactory',lb.base.dom.factory);
+              factory = getOption('lbFactory',defaultFactory);
           if ( is(box) && is(factory,'destroyElement','function') ){
             factory.destroyElement(box);
           }
@@ -26689,10 +26899,11 @@ define('lb/lb.core.Module',[
  * The Core Application manages the life cycle of modules.
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -26700,9 +26911,8 @@ define('lb/lb.core.Module',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define, window */
 define('lb/lb.core.application',[
     "./lb.core",
@@ -26865,10 +27075,11 @@ define('lb/lb.core.application',[
  * Data Model Modules for Legal Box Scalable JavaScript Application
  *
  * Authors:
- *   o Eric Bréchemier <legalbox@eric.brechemier.name>
+ *   o Eric Bréchemier <github@eric.brechemier.name>
  *   o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -26876,9 +27087,8 @@ define('lb/lb.core.application',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.data',[
     "./lb"
@@ -26899,10 +27109,11 @@ define('lb/lb.data',[
  * User Interface Modules for Legal Box Scalable JavaScript Application
  *
  * Authors:
- *   o Eric Bréchemier <legalbox@eric.brechemier.name>
+ *   o Eric Bréchemier <github@eric.brechemier.name>
  *   o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -26910,9 +27121,8 @@ define('lb/lb.data',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-04
+ * 2011-08-14
  */
-/*jslint white:false, plusplus:false */
 /*global define */
 define('lb/lb.ui',[
     "./lb"
