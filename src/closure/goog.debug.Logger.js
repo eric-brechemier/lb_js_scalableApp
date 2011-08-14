@@ -12,8 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright 2011 Eric Bréchemier, Some Rights Reserved
+// Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * renamed file from goog/debug/logger.js to goog.debug.Logger.js
 // * commented out all assertions and removed requirement
 // * set goog.debug.Logger.ENABLE_HIERARCHY to false and commented out

@@ -1,7 +1,6 @@
 
-The Scalable JavaScript Application framework,
-http://legalbox.github.com/lb_js_scalableApp/
-  by Legal-Box, Paris
+The Scalable JavaScript Application framework
+http://eric-brechemier.github.com/lb_js_scalableApp/
 
 LANGUAGES
 
@@ -47,13 +46,13 @@ REFERENCES
   http://www.slideshare.net/nzakas/scalable-javascript-application-architecture
 
   [2] Design Patterns for Scalable JavaScript Application by Legal-Box
-  http://legalbox.github.com/lb_js_scalableApp/doc/javascript-application-design-patterns.pdf
+  http://eric-brechemier.github.com/lb_js_scalableApp/doc/javascript-application-design-patterns.pdf
 
   [3] Semantic Versioning
   http://semver.org
 
   [4] HTML API of The Scalable JavaScript Application framework (latest stable)
-  http://legalbox.github.com/lb_js_scalableApp/build/out/doc/
+  http://eric-brechemier.github.com/lb_js_scalableApp/build/out/doc/
 
 REQUIREMENTS
 
@@ -78,13 +77,14 @@ REQUIREMENTS
 
 AUTHORS
 
-  Eric Bréchemier <legalbox@eric.brechemier.name>
+  Eric Bréchemier <github@eric.brechemier.name>
   Marc Delhommeau <marc.delhommeau@legalbox.com>
+  Special Thanks to: Igor Trifunovic <webmaster@eyegorweb.com>
 
 COPYRIGHT
 
+  Eric Bréchemier (c) 2011, Some Rights Reserved.
   Legal-Box SAS (c) 2010-2011, All Rights Reserved.
-  http://www.legal-box.com
 
 LICENSE
 
@@ -212,6 +212,7 @@ HISTORY
   2011-06-07, v1.7.6, Moved Ant macros to a separate file to facilitate reuse
   2011-07-08, v1.8.0, Now using RequireJS to manage module dependencies
   2011-07-12, v1.8.1, Upgraded jslint4java and JSLint, updated Ant macro
+  2011-XX-XX, v1.8.2, Project deleted by Legal-Box, moved to eric-brechemier
   2011-XX-XX, v1.9.0, ROADMAP: add foreach(), map(), reduce() in array API
   2011-XX-XX, v1.10.0, ROADMAP: add animate() method to CSS API of Sandbox
 

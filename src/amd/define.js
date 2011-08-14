@@ -18,9 +18,10 @@
  * Reference:
  * http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition
  *
- * Author: Eric Bréchemier <legalbox@eric.brechemier.name>
+ * Author: Eric Bréchemier <github@eric.brechemier.name>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -28,7 +29,7 @@
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-12
+ * 2011-08-14
  */
 /*global define */
 (function(){

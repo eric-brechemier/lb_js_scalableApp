@@ -17,8 +17,13 @@
  */
 
 /*
- * Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved.
- * Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+ * Modifications
+ * Copyright Eric Bréchemier (c) 2011, Some Rights Reserved.
+ * Copyright Legal-Box SAS (c) 2010-2011, All Rights Reserved.
+ *
+ * Licensed under the BSD License
+ * http://creativecommons.org/licenses/BSD/
+ *
  * - code extracted from closure/goog/net/xhrio_test.html
  * - code wrapped in a module definition with dependencies for requireJS
  * - added goog.provide('goog.net.MockXmlHttp') and assigned MockXmlHttp to

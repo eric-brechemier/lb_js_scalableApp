@@ -2,12 +2,18 @@
  * test.lb.base.ajax.js - Unit Tests of lb.base.ajax module
  *
  * Authors:
- *   o Eric Bréchemier <legalbox@eric.brechemier.name>
+ *   o Eric Bréchemier <github@eric.brechemier.name>
  *   o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
- * Copyright: Legal-Box (c) 2010-2011, All Rights Reserved
- * License:   BSD License - http://creativecommons.org/licenses/BSD/
- * Version:   2011-07-12
+ * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved.
+ * Legal-Box (c) 2010-2011, All Rights Reserved.
+ *
+ * License:
+ * BSD License
+ * http://creativecommons.org/licenses/BSD/
+ *
+ * Version:   2011-08-14
  *
  * Based on Test Runner from bezen.org JavaScript library
  * CC-BY: Eric Bréchemier - http://bezen.org/javascript/

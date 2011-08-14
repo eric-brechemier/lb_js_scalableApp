@@ -158,8 +158,13 @@
  *     http://labjs.com/
  */
 
-// Modifications Copyright 2010-2011 Legal-Box SAS, All Rights Reserved
-// Licensed under the BSD License - http://creativecommons.org/licenses/BSD/
+// Modifications
+// Copyright Eric Bréchemier (c) 2011, Some Rights Reserved.
+// Copyright Legal-Box SAS (c) 2010-2011, All Rights Reserved.
+//
+// Licensed under the BSD License
+// http://creativecommons.org/licenses/BSD/
+//
 // * updated module pattern for use with requireJS
 
 /*jslint evil:true, nomen:false, white:false, onevar:false, plusplus:false */

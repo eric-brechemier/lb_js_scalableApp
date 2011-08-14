@@ -2,17 +2,18 @@
  * CSS Styles for lb.base.history unit tests
  *
  * Author:
- * Eric Bréchemier <legalbox@eric.brechemier.name>
+ * Eric Bréchemier <github@eric.brechemier.name>
  *
  * Copyright:
- * Legal Box SAS (c) 2010, All Rights Reserved
+ * Eric Bréchemier (c) 2011, Some Rights Reserved.
+ * Legal-Box SAS (c) 2010-2011, All Rights Reserved.
  *
  * License:
  * BSD License
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2010-06-03
+ * 2010-08-14
  */
 iframe.hidden {
   position: absolute;

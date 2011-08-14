@@ -67,10 +67,11 @@
  * alternative plugins. See <lb.core.plugins.builder> for details.
  *
  * Authors:
- * o Eric Bréchemier <legalbox@eric.brechemier.name>
+ * o Eric Bréchemier <github@eric.brechemier.name>
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
+ * Eric Bréchemier (c) 2011, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -78,7 +79,7 @@
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-07-12
+ * 2011-08-14
  */
 /*global define, document, window */
 define(

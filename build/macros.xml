@@ -3,16 +3,24 @@
   <description>
   Macro definitions for projects based on
   The Scalable JavaScript Application Framework
-  by Legal-Box, Paris
 
   These macro definitions allow to use a simpler syntax to call the tools
   included in lib folder.
 
-  Author: Eric Bréchemier &lt;legalbox@eric.brechemier.name>
-  Author: Marc Delhommeau &lt;marc.delhommeau@legalbox.com>
-  Copyright: Legal-Box SAS (c) 2010-2011, All Rights Reserved
-  License: BSD License - http://creativecommons.org/licenses/BSD/
-  Version: 2011-07-12
+  Authors:
+  * Eric Bréchemier &lt;github@eric.brechemier.name>
+  * Marc Delhommeau &lt;marc.delhommeau@legalbox.com>
+
+  Copyright:
+  * Eric Bréchemier (c) 2011, Some Rights Reserved
+  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
+
+  License:
+  BSD License
+  http://creativecommons.org/licenses/BSD/
+
+  Version:
+  2011-08-14
 
   Based on Build script for bezen.org JavaScript library
   CC-BY: Eric Bréchemier - http://bezen.org/javascript/
