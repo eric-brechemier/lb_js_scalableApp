@@ -82,7 +82,7 @@ AUTHORS
 
 COPYRIGHT
 
-  Eric Bréchemier (c) 2011, Some Rights Reserved.
+  Eric Bréchemier (c) 2011-2013, Some Rights Reserved.
   Legal-Box SAS (c) 2010-2011, All Rights Reserved.
 
 LICENSE
@@ -212,6 +212,7 @@ HISTORY
   2011-07-08, v1.8.0, Now using RequireJS to manage module dependencies
   2011-07-12, v1.8.1, Upgraded jslint4java and JSLint, updated Ant macro
   2011-08-14, v1.8.2, Project deleted by Legal-Box, moved to eric-brechemier
-  2011-XX-XX, v1.9.0, ROADMAP: add foreach(), map(), reduce() in array API
-  2011-XX-XX, v1.10.0, ROADMAP: add animate() method to CSS API of Sandbox
+  2013-XX-XX, v1.8.3, ROADMAP: Add not() to replace !is() in base layer
+  2013-XX-XX, v1.9.0, ROADMAP: add foreach(), map(), reduce() in array API
+  2013-XX-XX, v1.10.0, ROADMAP: add animate() method to CSS API of Sandbox
 
