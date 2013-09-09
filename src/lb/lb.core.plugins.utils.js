@@ -169,9 +169,8 @@ define(
       //   document.createComment('') - 'Object' (IE),
       //                   'Comment' (Firefox,Chrome,Safari,Opera)
 
-      // Note: is is an alias for lb.base.type.is
+      // Note: is() is an alias for lb.base.type.is
 
-      // TODO: change first is to is() above
       // TODO: add no() to utils plugin and sandbox
 
       function getTimestamp(){
@@ -228,7 +227,7 @@ define(
       // Returns:
       //   string, a copy of the string with no whitespace at start and end
 
-      // Note: trim is an alias for lb.base.string.trim
+      // Note: trim() is an alias for lb.base.string.trim
 
       // Function: sandbox.utils.log(message)
       // Log a message.
@@ -240,7 +239,7 @@ define(
       // Parameter:
       //   message - string, the message to log
 
-      // Note: log is an alias for lb.base.log.print
+      // Note: log() is an alias for lb.base.log.print
 
       function confirm(message){
         // Function: sandbox.utils.confirm(message): boolean
