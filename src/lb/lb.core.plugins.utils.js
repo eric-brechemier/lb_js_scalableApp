@@ -7,7 +7,7 @@
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
- * Eric Bréchemier (c) 2011, Some Rights Reserved
+ * Eric Bréchemier (c) 2011-2013, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -15,7 +15,7 @@
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-08-14
+ * 2013-09-09
  */
 /*global define, window */
 define(
@@ -88,7 +88,7 @@ define(
       //     and the corresponding value is neither null nor undefined
       //   * false otherwise
 
-      // Note: is is an alias for lb.base.object.has
+      // Note: has() is an alias for lb.base.object.has
 
       // Function: sandbox.utils.is([...,]value[,type]): boolean
       // Check the type of a value, possibly nested in sub-properties.
