@@ -53,6 +53,7 @@
  *   - <lb.core.plugins.url.sandbox.url.onHashChange(callback)>
  *
  * General utilities (sandbox.utils):
+ *   TODO: add no() to sandbox.utils
  *   - <lb.core.plugins.utils.sandbox.utils.has(object,property[,...]): boolean>
  *   - <lb.core.plugins.utils.sandbox.utils.is([...,]value[,type]): boolean>
  *   - <lb.core.plugins.utils.sandbox.utils.getTimestamp(): number>

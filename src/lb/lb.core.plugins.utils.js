@@ -171,6 +171,9 @@ define(
 
       // Note: is is an alias for lb.base.type.is
 
+      // TODO: change first is to is() above
+      // TODO: add no() to utils plugin and sandbox
+
       function getTimestamp(){
         // Function: sandbox.utils.getTimestamp(): number
         // Get current timestamp, in milliseconds.
