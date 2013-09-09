@@ -21513,7 +21513,7 @@ define('lb/lb',function() {
  *   o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
- * Eric Bréchemier (c) 2011, Some Rights Reserved
+ * Eric Bréchemier (c) 2011-2013, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -21521,7 +21521,7 @@ define('lb/lb',function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-08-14
+ * 2013-09-09
  */
 /*global define */
 define('lb/lb.base',[
@@ -21529,11 +21529,25 @@ define('lb/lb.base',[
   ],
   function(lb) {
 
-    // Note: no methods defined at this level currently
+    function no( value ) {
+      // Function: no(value): boolean
+      // Check whether given value is null or undefined
+      //
+      // Parameter:
+      //   value - any, the value to check
+      //
+      // Returns:
+      //   boolean, false when the value is null or undefined,
+      //   true otherwise
+
+      var undef; // do not trust global undefined, which can be set to a value
+      return value === null || value === undef;
+    }
 
     // Assign to lb.base
     // for backward-compatibility in browser environment
     lb.base = { // public API
+      no: no
     };
 
     return lb.base;
@@ -21854,175 +21868,6 @@ define('lb/lb.base.array',[
   }
 );
 /*
- * Namespace: lb.base.type
- * Utility method for type checking.
- *
- * Authors:
- * o Eric Bréchemier <github@eric.brechemier.name>
- * o Marc Delhommeau <marc.delhommeau@legalbox.com>
- *
- * Copyright:
- * Eric Bréchemier (c) 2011, Some Rights Reserved
- * Legal-Box SAS (c) 2011, All Rights Reserved
- *
- * License:
- * BSD License
- * http://creativecommons.org/licenses/BSD/
- *
- * Version:
- * 2011-08-14
- */
-/*global define */
-define('lb/lb.base.type',[
-    "./lb.base"
-  ],
-  function(
-    lbBase
-  ) {
-
-    function is(value){
-      // Function: is([...,]value[,type]): boolean
-      // Check the type of a value, possibly nested in sub-properties.
-      //
-      // The method may be called with a single argument to check that the value
-      // is neither null nor undefined.
-      //
-      // If more than two arguments are provided, the value is considered to be
-      // nested within a chain of properties starting with the first argument:
-      // | is(object,'parent','child','leaf','boolean')
-      // will check whether the property object.parent.child.leaf exists and is
-      // a boolean.
-      //
-      // The intent of this method is to replace unsafe guard conditions that
-      // rely on type coercion:
-      // | if (object && object.parent && object.parent.child) {
-      // |   // Issue: all falsy values are treated like null and undefined:
-      // |   // '', 0, false...
-      // | }
-      // with a safer check in a single call:
-      // | if ( is(object,'parent','child','number') ) {
-      // |   // only null and undefined values are rejected
-      // |   // and the type expected (here 'number') is explicit
-      // | }
-      //
-      // Parameters:
-      //   ...   - any, optional, a chain of parent properties for a nested value
-      //   value - any, the value to check, which may be nested in a chain made
-      //           of previous arguments (see above)
-      //   type - string, optional, the type expected for the value.
-      //          Alternatively, a constructor function may be provided to check
-      //          whether the value is an instance of given constructor.
-      //
-      // Returns:
-      //   * false, if no argument is provided
-      //   * false, if a single argument is provided which is null or undefined
-      //   * true, if a single argument is provided, which is not null/undefined
-      //   * if the type argument is a non-empty string, it is compared with the
-      //     internal class of the value, put in lower case
-      //   * if the type argument is a function, the instanceof operator is used
-      //     to check if the value is considered an instance of the function
-      //   * otherwise, the value is compared with the provided type using the
-      //     strict equality operator ===
-      //
-      // Type Reference:
-      //   'undefined' - undefined
-      //   'null'      - null
-      //   'boolean'   - false, true
-      //   'number'    - -1, 0, 1, 2, 3, Math.sqrt(2), Math.E, Math.PI...
-      //   'string'    - '', 'abc', "Text!?"...
-      //   'array'     - [], [1,2,3], ['a',{},3]...
-      //   'object'    - {}, {question:'?',answer:42}, {a:{b:{c:3}}}...
-      //   'regexp'    - /abc/g, /[0-9a-z]+/i...
-      //   'function'  - function(){}, Date, setTimeout...
-      //
-      // Notes:
-      // This method retrieves the internal class of the provided value using
-      // | Object.prototype.toString.call(value).slice(8, -1)
-      // The class is then converted to lower case.
-      //
-      // See "The Class of an Object" section in the JavaScript Garden for
-      // more details on the internal class:
-      // http://bonsaiden.github.com/JavaScript-Garden/#types.typeof
-      //
-      // The internal class is only guaranteed to be the same in all browsers for
-      // Core JavaScript classes defined in ECMAScript. It differs for classes
-      // part of the Browser Object Model (BOM) and Document Object Model (DOM):
-      // window, document, DOM nodes:
-      //
-      //   window        - 'Object' (IE), 'Window' (Firefox,Opera),
-      //                   'global' (Chrome), 'DOMWindow' (Safari)
-      //   document      - 'Object' (IE),
-      //                   'HTMLDocument' (Firefox,Chrome,Safari,Opera)
-      //   document.body - 'Object' (IE),
-      //                   'HTMLBodyElement' (Firefox,Chrome,Safari,Opera)
-      //   document.createElement('div') - 'Object' (IE)
-      //                   'HTMLDivElement' (Firefox,Chrome,Safari,Opera)
-      //   document.createComment('') - 'Object' (IE),
-      //                   'Comment' (Firefox,Chrome,Safari,Opera)
-      //
-      var undef, // do not trust global undefined, which may be overridden
-          i,
-          length = arguments.length,
-          last = length -1,
-          type,
-          typeOfType,
-          internalClass;
-
-      if (length===0){
-        return false; // no argument
-      }
-
-      if (length===1){
-        return (value!==null && value!==undef);
-      }
-
-      if (length>2){
-        for (i=0; i<last-1; i++){
-          if ( !is(value) ){
-            return false;
-          }
-          value = value[ arguments[i+1] ];
-        }
-      }
-
-      type = arguments[last];
-      if (value === null){
-        return (type === null || type === 'null');
-      }
-      if (value === undef){
-        return (type === undef || type === 'undefined');
-      }
-      if (type === ''){
-        return value === type;
-      }
-
-      typeOfType = typeof type;
-      if (typeOfType === 'string'){
-        internalClass =
-          Object.prototype
-                .toString
-                .call(value)
-                .slice(8,-1)
-                .toLowerCase();
-        return internalClass === type;
-      }
-
-      if (typeOfType === 'function'){
-        return value instanceof type;
-      }
-
-      return value === type;
-    }
-
-    // Assign to lb.base.type
-    // for backward-compatibility in browser environment
-    lbBase.type = { // public API
-      is: is
-    };
-    return lbBase.type;
-  }
-);
-/*
  * Namespace: lb.base.object
  * Object Adapter Module for Base Library
  *
@@ -22031,7 +21876,7 @@ define('lb/lb.base.type',[
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
- * Eric Bréchemier (c) 2011, Some Rights Reserved
+ * Eric Bréchemier (c) 2011-2013, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -22039,24 +21884,22 @@ define('lb/lb.base.type',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-08-14
+ * 2013-09-09
  */
 /*global define */
 define('lb/lb.base.object',[
     "./lb.base",
-    "./lb.base.type",
     "closure/goog",
     "closure/goog.object"
   ],
   function(
     lbBase,
-    type,
     goog,
     object
   ) {
 
     // Declare aliases
-    var is = type.is,
+    var no = lbBase.no,
         deepCopy = goog.cloneObject,
         shallowCopy = object.clone;
 
@@ -22099,7 +21942,7 @@ define('lb/lb.base.object',[
       //   * true if the full chain of nested properties is found in the object
       //     and the corresponding value is neither null nor undefined
       //   * false otherwise
-      if ( !is(object) ){
+      if ( no(object) ){
         return false;
       }
 
@@ -22108,7 +21951,7 @@ define('lb/lb.base.object',[
       for (i=1, length=arguments.length; i<length; i++){
         property = arguments[i];
         object = object[property];
-        if ( !is(object) ){
+        if ( no(object) ){
           return false;
         }
       }
@@ -22850,6 +22693,178 @@ define('lb/lb.base.dom.factory',[
     };
 
     return lbBaseDom.factory;
+  }
+);
+/*
+ * Namespace: lb.base.type
+ * Utility method for type checking.
+ *
+ * Authors:
+ * o Eric Bréchemier <github@eric.brechemier.name>
+ * o Marc Delhommeau <marc.delhommeau@legalbox.com>
+ *
+ * Copyright:
+ * Eric Bréchemier (c) 2011-2013, Some Rights Reserved
+ * Legal-Box SAS (c) 2011, All Rights Reserved
+ *
+ * License:
+ * BSD License
+ * http://creativecommons.org/licenses/BSD/
+ *
+ * Version:
+ * 2013-09-09
+ */
+/*global define */
+define('lb/lb.base.type',[
+    "./lb.base"
+  ],
+  function(
+    lbBase
+  ) {
+
+    // Define alias
+    var no = lbBase.no;
+
+    function is(value){
+      // Function: is([...,]value[,type]): boolean
+      // Check the type of a value, possibly nested in sub-properties.
+      //
+      // The method may be called with a single argument to check that the value
+      // is neither null nor undefined.
+      //
+      // If more than two arguments are provided, the value is considered to be
+      // nested within a chain of properties starting with the first argument:
+      // | is(object,'parent','child','leaf','boolean')
+      // will check whether the property object.parent.child.leaf exists and is
+      // a boolean.
+      //
+      // The intent of this method is to replace unsafe guard conditions that
+      // rely on type coercion:
+      // | if (object && object.parent && object.parent.child) {
+      // |   // Issue: all falsy values are treated like null and undefined:
+      // |   // '', 0, false...
+      // | }
+      // with a safer check in a single call:
+      // | if ( is(object,'parent','child','number') ) {
+      // |   // only null and undefined values are rejected
+      // |   // and the type expected (here 'number') is explicit
+      // | }
+      //
+      // Parameters:
+      //   ...   - any, optional, a chain of parent properties for a nested value
+      //   value - any, the value to check, which may be nested in a chain made
+      //           of previous arguments (see above)
+      //   type - string, optional, the type expected for the value.
+      //          Alternatively, a constructor function may be provided to check
+      //          whether the value is an instance of given constructor.
+      //
+      // Returns:
+      //   * false, if no argument is provided
+      //   * false, if a single argument is provided which is null or undefined
+      //   * true, if a single argument is provided, which is not null/undefined
+      //   * if the type argument is a non-empty string, it is compared with the
+      //     internal class of the value, put in lower case
+      //   * if the type argument is a function, the instanceof operator is used
+      //     to check if the value is considered an instance of the function
+      //   * otherwise, the value is compared with the provided type using the
+      //     strict equality operator ===
+      //
+      // Type Reference:
+      //   'undefined' - undefined
+      //   'null'      - null
+      //   'boolean'   - false, true
+      //   'number'    - -1, 0, 1, 2, 3, Math.sqrt(2), Math.E, Math.PI...
+      //   'string'    - '', 'abc', "Text!?"...
+      //   'array'     - [], [1,2,3], ['a',{},3]...
+      //   'object'    - {}, {question:'?',answer:42}, {a:{b:{c:3}}}...
+      //   'regexp'    - /abc/g, /[0-9a-z]+/i...
+      //   'function'  - function(){}, Date, setTimeout...
+      //
+      // Notes:
+      // This method retrieves the internal class of the provided value using
+      // | Object.prototype.toString.call(value).slice(8, -1)
+      // The class is then converted to lower case.
+      //
+      // See "The Class of an Object" section in the JavaScript Garden for
+      // more details on the internal class:
+      // http://bonsaiden.github.com/JavaScript-Garden/#types.typeof
+      //
+      // The internal class is only guaranteed to be the same in all browsers for
+      // Core JavaScript classes defined in ECMAScript. It differs for classes
+      // part of the Browser Object Model (BOM) and Document Object Model (DOM):
+      // window, document, DOM nodes:
+      //
+      //   window        - 'Object' (IE), 'Window' (Firefox,Opera),
+      //                   'global' (Chrome), 'DOMWindow' (Safari)
+      //   document      - 'Object' (IE),
+      //                   'HTMLDocument' (Firefox,Chrome,Safari,Opera)
+      //   document.body - 'Object' (IE),
+      //                   'HTMLBodyElement' (Firefox,Chrome,Safari,Opera)
+      //   document.createElement('div') - 'Object' (IE)
+      //                   'HTMLDivElement' (Firefox,Chrome,Safari,Opera)
+      //   document.createComment('') - 'Object' (IE),
+      //                   'Comment' (Firefox,Chrome,Safari,Opera)
+      //
+      var undef, // do not trust global undefined, which may be overridden
+          i,
+          length = arguments.length,
+          last = length -1,
+          type,
+          typeOfType,
+          internalClass;
+
+      if (length===0){
+        return false; // no argument
+      }
+
+      if (length===1){
+        return !no(value);
+      }
+
+      if (length>2){
+        for (i=0; i<last-1; i++){
+          if ( no(value) ){
+            return false;
+          }
+          value = value[ arguments[i+1] ];
+        }
+      }
+
+      type = arguments[last];
+      if (value === null){
+        return (type === null || type === 'null');
+      }
+      if (value === undef){
+        return (type === undef || type === 'undefined');
+      }
+      if (type === ''){
+        return value === type;
+      }
+
+      typeOfType = typeof type;
+      if (typeOfType === 'string'){
+        internalClass =
+          Object.prototype
+                .toString
+                .call(value)
+                .slice(8,-1)
+                .toLowerCase();
+        return internalClass === type;
+      }
+
+      if (typeOfType === 'function'){
+        return value instanceof type;
+      }
+
+      return value === type;
+    }
+
+    // Assign to lb.base.type
+    // for backward-compatibility in browser environment
+    lbBase.type = { // public API
+      is: is
+    };
+    return lbBase.type;
   }
 );
 /*
@@ -23946,7 +23961,7 @@ define('lb/lb.base.template',[
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
- * Eric Bréchemier (c) 2011, Some Rights Reserved
+ * Eric Bréchemier (c) 2011-2013, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -23954,22 +23969,25 @@ define('lb/lb.base.template',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-08-14
+ * 2013-09-09
  */
 /*global define */
 define('lb/lb.base.template.string',[
+    "./lb.base",
     "./lb.base.template",
     "./lb.base.object",
     "./lb.base.type"
   ],
   function(
+    lbBase,
     lbBaseTemplate,
     object,
     type
   ) {
 
     // Declare aliases
-    var has = object.has,
+    var no = lbBase.no,
+        has = object.has,
         is = type.is,
 
     // Private fields
@@ -24084,11 +24102,11 @@ define('lb/lb.base.template.string',[
       return function(string){
         return string.replace(PARAM_REGEXP, function(match,param){
           var value = getValue(param);
-          if ( is(value) ){
-            return value;
-          } else {
+          if ( no(value) ){
             // no replacement found - return unreplaced param
             return match;
+          } else {
+            return value;
           }
         });
       };
@@ -24387,7 +24405,7 @@ define('lb/lb.base.template.html',[
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
- * Eric Bréchemier (c) 2011, Some Rights Reserved
+ * Eric Bréchemier (c) 2011-2013, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -24395,10 +24413,11 @@ define('lb/lb.base.template.html',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-08-14
+ * 2013-09-09
  */
 /*global define */
 define('lb/lb.base.template.i18n',[
+    "./lb.base",
     "./lb.base.template",
     "./lb.base.object",
     "./lb.base.type",
@@ -24410,6 +24429,7 @@ define('lb/lb.base.template.i18n',[
     "./lb.base.template.html"
   ],
   function(
+    lbBase,
     lbBaseTemplate,
     object,
     type,
@@ -24423,7 +24443,8 @@ define('lb/lb.base.template.i18n',[
 
     // Declare aliases
 
-    var has = object.has,
+    var no = lbBase.no,
+        has = object.has,
         is = type.is,
         ELEMENT_NODE = dom.ELEMENT_NODE,
         hasAttribute = dom.hasAttribute,
@@ -24519,7 +24540,7 @@ define('lb/lb.base.template.i18n',[
       }
 
       var value = get(key,languageCode);
-      if ( !is(value) ){
+      if ( no(value) ){
         return value;
       }
       if ( is(value,'function') ){
@@ -24584,10 +24605,10 @@ define('lb/lb.base.template.i18n',[
       var getDataValue = withValuesFrom(data);
       return function(key){
         var value = getDataValue(key);
-        if ( is(value) ){
-          return value;
-        } else {
+        if ( no(value) ){
           return getString(key,data,languageCode);
+        } else {
+          return value;
         }
       };
     }
@@ -24903,6 +24924,7 @@ define('lb/lb.core.plugins',[
  *   - <lb.core.plugins.url.sandbox.url.onHashChange(callback)>
  *
  * General utilities (sandbox.utils):
+ *   TODO: add no() to sandbox.utils
  *   - <lb.core.plugins.utils.sandbox.utils.has(object,property[,...]): boolean>
  *   - <lb.core.plugins.utils.sandbox.utils.is([...,]value[,type]): boolean>
  *   - <lb.core.plugins.utils.sandbox.utils.getTimestamp(): number>
@@ -26332,7 +26354,7 @@ define('lb/lb.core.plugins.url',[
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
- * Eric Bréchemier (c) 2011, Some Rights Reserved
+ * Eric Bréchemier (c) 2011-2013, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -26340,11 +26362,12 @@ define('lb/lb.core.plugins.url',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-08-14
+ * 2013-09-09
  */
 /*global define, window */
 define('lb/lb.core.plugins.utils',[
     "./lb.core.plugins",
+    "./lb.base",
     "./lb.base.object",
     "./lb.base.type",
     "./lb.base.string",
@@ -26352,6 +26375,7 @@ define('lb/lb.core.plugins.utils',[
   ],
   function(
     lbCorePlugins,
+    lbBase,
     object,
     type,
     string,
@@ -26368,10 +26392,42 @@ define('lb/lb.core.plugins.utils',[
       //   sandbox - object, the sandbox instance to enrich with utility methods
 
       // Declare aliases
-      var has = object.has,
+      var no = lbBase.no,
+          has = object.has,
           is = type.is,
           trim = string.trim,
           log = logModule.print;
+
+      // Function: sandbox.utils.no(value): boolean
+      // Check whether given value is null or undefined
+      //
+      // The intent of this method is to replace unsafe tests relying on type
+      // coercion for optional arguments or object properties:
+      // | function onEvent(name,data){
+      // |   if (!name || !data || !data.value){
+      // |     // unsafe due to type coercion: all falsy values '', false, 0
+      // |     // are discarded, not just null and undefined
+      // |     return;
+      // |   }
+      // |   // ...
+      // | }
+      // with a safer test without type coercion:
+      // | function onEvent(event,options){
+      // |   if ( no(name) || no(data) || no(data.value) ){
+      // |     // safe check: only null/undefined values are rejected;
+      // |     return;
+      // |   }
+      // |   // ...
+      // | }
+      //
+      // Parameter:
+      //   value - any, the value to check
+      //
+      // Returns:
+      //   boolean, false when the value is null or undefined,
+      //   true otherwise
+
+      // Note: no() is an alias for lb.base.no
 
       // Function: sandbox.utils.has(object,property[,...]): boolean
       // Check whether an object property is present and not null nor undefined.
@@ -26412,7 +26468,7 @@ define('lb/lb.core.plugins.utils',[
       //     and the corresponding value is neither null nor undefined
       //   * false otherwise
 
-      // Note: is is an alias for lb.base.object.has
+      // Note: has() is an alias for lb.base.object.has
 
       // Function: sandbox.utils.is([...,]value[,type]): boolean
       // Check the type of a value, possibly nested in sub-properties.
@@ -26493,7 +26549,9 @@ define('lb/lb.core.plugins.utils',[
       //   document.createComment('') - 'Object' (IE),
       //                   'Comment' (Firefox,Chrome,Safari,Opera)
 
-      // Note: is is an alias for lb.base.type.is
+      // Note: is() is an alias for lb.base.type.is
+
+      // TODO: add no() to utils plugin and sandbox
 
       function getTimestamp(){
         // Function: sandbox.utils.getTimestamp(): number
@@ -26549,7 +26607,7 @@ define('lb/lb.core.plugins.utils',[
       // Returns:
       //   string, a copy of the string with no whitespace at start and end
 
-      // Note: trim is an alias for lb.base.string.trim
+      // Note: trim() is an alias for lb.base.string.trim
 
       // Function: sandbox.utils.log(message)
       // Log a message.
@@ -26561,7 +26619,7 @@ define('lb/lb.core.plugins.utils',[
       // Parameter:
       //   message - string, the message to log
 
-      // Note: log is an alias for lb.base.log.print
+      // Note: log() is an alias for lb.base.log.print
 
       function confirm(message){
         // Function: sandbox.utils.confirm(message): boolean
@@ -26577,6 +26635,7 @@ define('lb/lb.core.plugins.utils',[
       }
 
       sandbox.utils = {
+        no: no,
         has: has,
         is: is,
         getTimestamp: getTimestamp,
@@ -26725,7 +26784,7 @@ define('lb/lb.core.plugins.builder',[
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
- * Eric Bréchemier (c) 2011, Some Rights Reserved
+ * Eric Bréchemier (c) 2011-2013, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -26733,11 +26792,12 @@ define('lb/lb.core.plugins.builder',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-08-14
+ * 2013-09-09
  */
 /*global define */
 define('lb/lb.core.Module',[
     "./lb.core",
+    "./lb.base",
     "./lb.base.type",
     "./lb.base.log",
     "./lb.base.dom.factory",
@@ -26747,6 +26807,7 @@ define('lb/lb.core.Module',[
   ],
   function(
     lbCore,
+    lbBase,
     type,
     logModule,
     defaultFactory,
@@ -26780,7 +26841,8 @@ define('lb/lb.core.Module',[
       // for details.
 
       // Define aliases
-      var is = type.is,
+      var no = lbBase.no,
+          is = type.is,
           log = logModule.print,
           getOption = config.getOption,
           $ = dom.$,
@@ -26838,7 +26900,7 @@ define('lb/lb.core.Module',[
             box;
         if ( is(customFactory,'initElement','function') ){
           box = getSandbox().getBox(false);
-          if ( is(box) ){
+          if ( !no(box) ){
             // possible extension point for the initialization of widgets
             customFactory.initElement(box);
           }
@@ -26873,7 +26935,7 @@ define('lb/lb.core.Module',[
           sandbox.dom.removeAllListeners();
           var box = $( sandbox.getId() ),
               factory = getOption('lbFactory',defaultFactory);
-          if ( is(box) && is(factory,'destroyElement','function') ){
+          if ( !no(box) && is(factory,'destroyElement','function') ){
             factory.destroyElement(box);
           }
         } catch(endError){
