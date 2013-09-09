@@ -21,6 +21,7 @@
 define(
   [
     "./lb.core.plugins",
+    "./lb.base",
     "./lb.base.object",
     "./lb.base.type",
     "./lb.base.string",
@@ -28,6 +29,7 @@ define(
   ],
   function(
     lbCorePlugins,
+    lbBase,
     object,
     type,
     string,
@@ -44,10 +46,42 @@ define(
       //   sandbox - object, the sandbox instance to enrich with utility methods
 
       // Declare aliases
-      var has = object.has,
+      var no = lbBase.no,
+          has = object.has,
           is = type.is,
           trim = string.trim,
           log = logModule.print;
+
+      // Function: sandbox.utils.no(value): boolean
+      // Check whether given value is null or undefined
+      //
+      // The intent of this method is to replace unsafe tests relying on type
+      // coercion for optional arguments or object properties:
+      // | function onEvent(name,data){
+      // |   if (!name || !data || !data.value){
+      // |     // unsafe due to type coercion: all falsy values '', false, 0
+      // |     // are discarded, not just null and undefined
+      // |     return;
+      // |   }
+      // |   // ...
+      // | }
+      // with a safer test without type coercion:
+      // | function onEvent(event,options){
+      // |   if ( no(name) || no(data) || no(data.value) ){
+      // |     // safe check: only null/undefined values are rejected;
+      // |     return;
+      // |   }
+      // |   // ...
+      // | }
+      //
+      // Parameter:
+      //   value - any, the value to check
+      //
+      // Returns:
+      //   boolean, false when the value is null or undefined,
+      //   true otherwise
+
+      // Note: no() is an alias for lb.base.no
 
       // Function: sandbox.utils.has(object,property[,...]): boolean
       // Check whether an object property is present and not null nor undefined.
@@ -255,6 +289,7 @@ define(
       }
 
       sandbox.utils = {
+        no: no,
         has: has,
         is: is,
         getTimestamp: getTimestamp,
