@@ -39,6 +39,12 @@ FIRST STEPS
   the modules in lb.base, a layer for cross-browser compatibility, are
   implementation specific and may vary from version to version.
 
+LEARN MORE
+
+  The framework has been presented at ParisJS #6, on April 27th, 2011.
+  You can find the slides of the presentation on GitHub [5] or watch
+  the videos of the presentation [6][7] (in French).
+
 REFERENCES
 
   [1] Scalable JavaScript Application Architecture, by Nicholas Zakas
@@ -52,6 +58,15 @@ REFERENCES
 
   [4] HTML API of The Scalable JavaScript Application framework (latest stable)
   http://eric-brechemier.github.com/lb_js_scalableApp/build/out/doc/
+
+  [5] Introduction to The Scalable JavaScript Application Framework (slides)
+  https://github.com/eric-brechemier/introduction_to_lb_js_scalableApp
+
+  [6] [FR] Video Part 1 - Presentation at ParisJS #6
+  http://vimeo.com/26719486
+
+  [7] [FR] Video Part 2 - Q&A after the presentation at ParisJS #6
+  http://vimeo.com/26996020
 
 REQUIREMENTS
 
