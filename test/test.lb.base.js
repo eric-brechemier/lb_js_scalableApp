@@ -48,15 +48,16 @@ define(
     function testNo(){
       var no = base.no;
 
-      assert( no( null ),            "TEST1: no() must return true for null" );
-      assert( no( undefined ),  "TEST1: no() must return true for undefined" );
+      assert.isTrue( no( null ),     "TEST1: no() must return true for null" );
+      assert.isTrue( no( undefined ),
+                                "TEST1: no() must return true for undefined" );
 
       /*
         Check that no() returns false for values different from null and undefined
       */
       function checkFalseFor( value ) {
         var result = no( value );
-        assert( result === false,
+        assert.equals( result, false,
                           "TEST2: no() must return false for other values ; " +
                                  "found: " + result + " for '" + value + "'" );
       }
