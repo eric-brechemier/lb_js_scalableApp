@@ -30,8 +30,8 @@ FIRST STEPS
   at build/out/js/lb-min.js.
 
   After understanding the underlying principles [1] and reading the design
-  document [2], you should start digging the generated HTML API, starting with
-  the Sandbox build/out/doc/files/lb-core-Sandbox-js.html and the Core
+  document [2], you should start digging the generated HTML API [4], starting
+  with the Sandbox build/out/doc/files/lb-core-Sandbox-js.html and the Core
   Application build/out/doc/files/lb-core-application-js.html
 
   For the purpose of Semantic Versioning [3], the public API of this library
