@@ -3,14 +3,14 @@
  *
  * Author:    Eric Bréchemier <github@eric.brechemier.name>
  * Copyright:
- * Eric Bréchemier (c) 2011, Some Rights Reserved.
+ * Eric Bréchemier (c) 2011-2013, Some Rights Reserved.
  * Legal-Box (c) 2010-2011, All Rights Reserved.
  *
  * License:
  * BSD License
  * http://creativecommons.org/licenses/BSD/
  *
- * Version:   2011-08-14
+ * Version:   2013-09-09
  *
  * Based on Test Runner from bezen.org JavaScript library
  * CC-BY: Eric Bréchemier - http://bezen.org/javascript/
@@ -60,6 +60,8 @@ define(
       ut(sandbox);
 
       // General utilities (sandbox.utils)
+      assert.isTrue( object.exists(sandbox,'utils','no'),
+                                   "sandbox.utils.no expected to be defined");
       assert.isTrue( object.exists(sandbox,'utils','has'),
                                   "sandbox.utils.has expected to be defined");
       assert.isTrue( object.exists(sandbox,'utils','is'),
@@ -76,6 +78,34 @@ define(
                                   "sandbox.utils.log expected to be defined");
       assert.isTrue( object.exists(sandbox,'utils','confirm'),
                               "sandbox.utils.confirm expected to be defined");
+    }
+
+    function testNo(){
+      var sandbox = new Sandbox('testNo');
+      pluginsUtils(sandbox);
+      var ut = sandbox.utils.no;
+
+      assert.isTrue( ut( null ),     "TEST1: no() must return true for null" );
+      assert.isTrue( ut( undefined ),
+                                "TEST1: no() must return true for undefined" );
+
+      // Check that no() returns false for values different
+      // from null and undefined
+      function checkFalseFor( value ) {
+        var result = ut( value );
+        assert.equals( result, false,
+                          "TEST2: no() must return false for other values ; " +
+                                 "found: " + result + " for '" + value + "'" );
+      }
+
+      checkFalseFor( false );
+      checkFalseFor( {} );
+      checkFalseFor( "" );
+      checkFalseFor( "abc" );
+      checkFalseFor( [] );
+      checkFalseFor( [ 1, 2, 3 ] );
+      checkFalseFor( 0 );
+      checkFalseFor( 42 );
     }
 
     function testHas(){
@@ -249,6 +279,7 @@ define(
     var tests = {
       testNamespace: testNamespace,
       testPlugin: testPlugin,
+      testNo: testNo,
       testHas: testHas,
       testIs: testIs,
       testGetTimestamp: testGetTimestamp,
