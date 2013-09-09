@@ -13,7 +13,7 @@
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
- * Eric Bréchemier (c) 2011, Some Rights Reserved
+ * Eric Bréchemier (c) 2011-2013, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -21,12 +21,13 @@
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-08-14
+ * 2013-09-09
  */
 /*global define */
 define(
   [
     "./lb.core",
+    "./lb.base",
     "./lb.base.type",
     "./lb.base.log",
     "./lb.base.dom.factory",
@@ -36,6 +37,7 @@ define(
   ],
   function(
     lbCore,
+    lbBase,
     type,
     logModule,
     defaultFactory,
@@ -69,7 +71,8 @@ define(
       // for details.
 
       // Define aliases
-      var is = type.is,
+      var no = lbBase.no,
+          is = type.is,
           log = logModule.print,
           getOption = config.getOption,
           $ = dom.$,
@@ -127,7 +130,7 @@ define(
             box;
         if ( is(customFactory,'initElement','function') ){
           box = getSandbox().getBox(false);
-          if ( is(box) ){
+          if ( !no(box) ){
             // possible extension point for the initialization of widgets
             customFactory.initElement(box);
           }
@@ -162,7 +165,7 @@ define(
           sandbox.dom.removeAllListeners();
           var box = $( sandbox.getId() ),
               factory = getOption('lbFactory',defaultFactory);
-          if ( is(box) && is(factory,'destroyElement','function') ){
+          if ( !no(box) && is(factory,'destroyElement','function') ){
             factory.destroyElement(box);
           }
         } catch(endError){

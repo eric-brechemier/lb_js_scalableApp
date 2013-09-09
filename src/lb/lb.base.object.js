@@ -7,7 +7,7 @@
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
- * Eric Bréchemier (c) 2011, Some Rights Reserved
+ * Eric Bréchemier (c) 2011-2013, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -15,25 +15,23 @@
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-08-14
+ * 2013-09-09
  */
 /*global define */
 define(
   [
     "./lb.base",
-    "./lb.base.type",
     "closure/goog",
     "closure/goog.object"
   ],
   function(
     lbBase,
-    type,
     goog,
     object
   ) {
 
     // Declare aliases
-    var is = type.is,
+    var no = lbBase.no,
         deepCopy = goog.cloneObject,
         shallowCopy = object.clone;
 
@@ -76,7 +74,7 @@ define(
       //   * true if the full chain of nested properties is found in the object
       //     and the corresponding value is neither null nor undefined
       //   * false otherwise
-      if ( !is(object) ){
+      if ( no(object) ){
         return false;
       }
 
@@ -85,7 +83,7 @@ define(
       for (i=1, length=arguments.length; i<length; i++){
         property = arguments[i];
         object = object[property];
-        if ( !is(object) ){
+        if ( no(object) ){
           return false;
         }
       }

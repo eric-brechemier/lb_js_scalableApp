@@ -15,7 +15,7 @@
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
- * Eric Bréchemier (c) 2011, Some Rights Reserved
+ * Eric Bréchemier (c) 2011-2013, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -23,23 +23,26 @@
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-08-14
+ * 2013-09-09
  */
 /*global define */
 define(
   [
+    "./lb.base",
     "./lb.base.template",
     "./lb.base.object",
     "./lb.base.type"
   ],
   function(
+    lbBase,
     lbBaseTemplate,
     object,
     type
   ) {
 
     // Declare aliases
-    var has = object.has,
+    var no = lbBase.no,
+        has = object.has,
         is = type.is,
 
     // Private fields
@@ -154,11 +157,11 @@ define(
       return function(string){
         return string.replace(PARAM_REGEXP, function(match,param){
           var value = getValue(param);
-          if ( is(value) ){
-            return value;
-          } else {
+          if ( no(value) ){
             // no replacement found - return unreplaced param
             return match;
+          } else {
+            return value;
           }
         });
       };

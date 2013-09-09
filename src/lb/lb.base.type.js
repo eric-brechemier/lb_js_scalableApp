@@ -7,7 +7,7 @@
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
- * Eric Bréchemier (c) 2011, Some Rights Reserved
+ * Eric Bréchemier (c) 2011-2013, Some Rights Reserved
  * Legal-Box SAS (c) 2011, All Rights Reserved
  *
  * License:
@@ -15,7 +15,7 @@
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-08-14
+ * 2013-09-09
  */
 /*global define */
 define(
@@ -25,6 +25,9 @@ define(
   function(
     lbBase
   ) {
+
+    // Define alias
+    var no = lbBase.no;
 
     function is(value){
       // Function: is([...,]value[,type]): boolean
@@ -119,12 +122,12 @@ define(
       }
 
       if (length===1){
-        return (value!==null && value!==undef);
+        return !no(value);
       }
 
       if (length>2){
         for (i=0; i<last-1; i++){
-          if ( !is(value) ){
+          if ( no(value) ){
             return false;
           }
           value = value[ arguments[i+1] ];
