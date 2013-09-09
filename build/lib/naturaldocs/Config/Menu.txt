@@ -61,6 +61,7 @@ Group: Core API {
 
 Group: Base API {
   Text: private API, an adaptation layer on top of the cross-browser library, for use in the core
+  File: lb.base  (no auto-title, lb/lb.base.js)
   File: lb.base.ajax  (no auto-title, lb/lb.base.ajax.js)
   File: lb.base.array  (no auto-title, lb/lb.base.array.js)
   File: lb.base.config (no auto-title, lb/lb.base.config.js)
@@ -85,7 +86,6 @@ Group: Base API {
 Group: Namespaces {
   Text: empty modules defining a namespace
   File: lb  (no auto-title, lb/lb.js)
-  File: lb.base  (no auto-title, lb/lb.base.js)
   File: lb.core  (no auto-title, lb/lb.core.js)
   File: lb.core.events  (no auto-title, lb/lb.core.events.js)
   File: lb.core.plugins  (no auto-title, lb/lb.core.plugins.js)
