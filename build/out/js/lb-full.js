@@ -21521,7 +21521,7 @@ define('lb/lb',function() {
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2013-09-09
+ * 2013-09-10
  */
 /*global define */
 define('lb/lb.base',[
@@ -21544,10 +21544,25 @@ define('lb/lb.base',[
       return value === null || value === undef;
     }
 
+    function or( a, b ) {
+      // Function: or(a,b): any
+      // Get a default value when given value is null or undefined
+      //
+      // Parameters:
+      //   a - any, the value to check
+      //   b - any, the default value
+      //
+      // Returns:
+      //   any, the default value when the value is null or undefined,
+      //   the value itself otherwise.
+      return no( a )? b: a;
+    }
+
     // Assign to lb.base
     // for backward-compatibility in browser environment
     lb.base = { // public API
-      no: no
+      no: no,
+      or: or
     };
 
     return lb.base;
@@ -24924,7 +24939,8 @@ define('lb/lb.core.plugins',[
  *   - <lb.core.plugins.url.sandbox.url.onHashChange(callback)>
  *
  * General utilities (sandbox.utils):
- *   TODO: add no() to sandbox.utils
+ *   - <lb.core.plugins.utils.sandbox.utils.no(value): boolean>
+ *   - <lb.core.plugins.utils.sandbox.utils.or(a,b): any>
  *   - <lb.core.plugins.utils.sandbox.utils.has(object,property[,...]): boolean>
  *   - <lb.core.plugins.utils.sandbox.utils.is([...,]value[,type]): boolean>
  *   - <lb.core.plugins.utils.sandbox.utils.getTimestamp(): number>
@@ -24943,7 +24959,7 @@ define('lb/lb.core.plugins',[
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
- * Eric Bréchemier (c) 2011, Some Rights Reserved
+ * Eric Bréchemier (c) 2011-2013, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -24951,7 +24967,7 @@ define('lb/lb.core.plugins',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-08-14
+ * 2013-09-10
  */
 /*global define, document, window */
 define('lb/lb.core.Sandbox',[
@@ -26362,7 +26378,7 @@ define('lb/lb.core.plugins.url',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2013-09-09
+ * 2013-09-10
  */
 /*global define, window */
 define('lb/lb.core.plugins.utils',[
@@ -26393,6 +26409,7 @@ define('lb/lb.core.plugins.utils',[
 
       // Declare aliases
       var no = lbBase.no,
+          or = lbBase.or,
           has = object.has,
           is = type.is,
           trim = string.trim,
@@ -26428,6 +26445,33 @@ define('lb/lb.core.plugins.utils',[
       //   true otherwise
 
       // Note: no() is an alias for lb.base.no
+
+      // Function: sandbox.utils.or(a,b): any
+      // Get a default value when given value is null or undefined
+      //
+      // The intent of this method is to replace unsafe initialization of
+      // optional parameters to a default value relying on type coercion:
+      // | function on(event,options){
+      // |   options = options || {}; // type coercion
+      // |   var isUser = options.isUser || false; // type coercion
+      // |   // ...
+      // | }
+      // with a safer initialization without type coercion:
+      // | function on(event,options){
+      // |   options = or(options, {}); // no type coercion
+      // |   var isUser = or(options.isUser, false); // no type coercion
+      // |   // ...
+      // | }
+      //
+      // Parameters:
+      //   a - any, the value to check
+      //   b - any, the default value
+      //
+      // Returns:
+      //   any, the default value when the value is null or undefined,
+      //   the value itself otherwise.
+
+      // Note: or() is an alias for lb.base.or
 
       // Function: sandbox.utils.has(object,property[,...]): boolean
       // Check whether an object property is present and not null nor undefined.
@@ -26551,8 +26595,6 @@ define('lb/lb.core.plugins.utils',[
 
       // Note: is() is an alias for lb.base.type.is
 
-      // TODO: add no() to utils plugin and sandbox
-
       function getTimestamp(){
         // Function: sandbox.utils.getTimestamp(): number
         // Get current timestamp, in milliseconds.
@@ -26636,6 +26678,7 @@ define('lb/lb.core.plugins.utils',[
 
       sandbox.utils = {
         no: no,
+        or: or,
         has: has,
         is: is,
         getTimestamp: getTimestamp,
