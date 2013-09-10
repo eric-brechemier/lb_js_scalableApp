@@ -227,8 +227,8 @@ HISTORY
   2011-07-08, v1.8.0, Now using RequireJS to manage module dependencies
   2011-07-12, v1.8.1, Upgraded jslint4java and JSLint, updated Ant macro
   2011-08-14, v1.8.2, Project deleted by Legal-Box, moved to eric-brechemier
-  2013-09-09, v1.8.3, Add no() to Sandbox utils API
-  2013-09-10, v1.8.4, Add or() to Sandbox utils API
-  2013-XX-XX, v1.9.0, ROADMAP: add foreach(), map(), reduce() in array API
-  2013-XX-XX, v1.10.0, ROADMAP: add animate() method to CSS API of Sandbox
+  2013-09-09, v1.9.0, Add no() to Sandbox utils API
+  2013-09-10, v1.10.0, Add or() to Sandbox utils API
+  2013-XX-XX, v1.11.0, ROADMAP: add foreach(), map(), reduce() in array API
+  2013-XX-XX, v1.12.0, ROADMAP: add animate() method to CSS API of Sandbox
 
