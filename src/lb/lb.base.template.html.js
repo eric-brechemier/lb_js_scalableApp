@@ -42,7 +42,7 @@ define(
     type,
     array,
     dom,
-    string, 
+    string,
     logModule
   ) {
 
@@ -181,7 +181,7 @@ define(
       //   properties, considered as attributes) in Internet Explorer.
       if ( (node.nodeType === ATTRIBUTE_NODE) &&
            (node.name === 'href' || node.name === 'src')  ) {
-        var baseUrl = getBaseUrl(); 
+        var baseUrl = getBaseUrl();
         if ( node.nodeValue.indexOf(baseUrl) === 0 ) {
           // Remove absolute URL added by IE 7 at start of local href and src
           // The URL is identical to the part of window.location.href before the '#'
