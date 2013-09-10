@@ -21883,6 +21883,103 @@ define('lb/lb.base.array',[
   }
 );
 /*
+ * Namespace: lb.base.config
+ * Configuration Adapter Module for Base Library
+ *
+ * This is a generic data storage for configuration properties.
+ * Options are stored as properties of a private config object.
+ * They can be accessed using setOptions() to set one or several options, and
+ * getOption() to retrieve a single value.
+ *
+ * Authors:
+ *   o Eric Bréchemier <github@eric.brechemier.name>
+ *   o Marc delhommeau <marc.delhommeau@legalbox.com>
+ *
+ * Copyright:
+ * Eric Bréchemier (c) 2011-2013, Some Rights Reserved
+ * Legal-Box SAS (c) 2010-2011, All Rights Reserved
+ *
+ * License:
+ * BSD License
+ * http://creativecommons.org/licenses/BSD/
+ *
+ * Version:
+ * 2013-09-10
+ */
+/*global define */
+define('lb/lb.base.config',[
+    "./lb.base",
+    "closure/goog.object"
+  ],
+  function(
+    lbBase,
+    gObject
+  ) {
+
+    // Declare alias
+    var or = lbBase.or,
+
+    // Private fields
+
+        // object, a hash of configuration properties
+        config = {};
+
+    function reset(){
+      // Function: reset()
+      // Remove all options from configuration.
+
+      config = {};
+    }
+
+    function setOptions(options){
+      // Function: setOptions(options)
+      // Set one or several configuration options.
+      //
+      // Each new option is added to the configuration, replacing any existing
+      // value of the same name. Options previously set are otherwise preserved.
+      //
+      // In order to avoid clashes in the names of configuration properties,
+      // each property should use a prefix corresponding to the implementor of
+      // the module which makes use of it. All configuration properties used in
+      // modules implemented by Legal-Box will use the prefix 'lb', e.g.
+      // 'lbFactory' for the DOM Element Factory.
+      //
+      // Parameter:
+      //   options - object, a set of configuration properties
+
+      gObject.extend(config,options);
+    }
+
+    function getOption(name, defaultValue){
+      // Function: getOption(name, defaultValue)
+      //
+      // Parameters:
+      //   name - string, name of the configuration property to retrieve
+      //   defaultValue - any, optional default value to return in case the
+      //                  configuration value is undefined or null.
+      //                  The default value itself defaults to null.
+      //
+      // Returns:
+      //   - the default value when the corresponding configuration property is
+      //     missing, null or undefined
+      //   - the value of the corresponding configuration property otherwise
+      defaultValue = or(defaultValue, null);
+
+      return or(config[name], defaultValue);
+    }
+
+    // Assign to lb.base.config$
+    // for backward-compatibility in browser environment
+    lbBase.config = { // public API
+      reset: reset,
+      setOptions: setOptions,
+      getOption: getOption
+    };
+
+    return lbBase.config;
+  }
+);
+/*
  * Namespace: lb.base.object
  * Object Adapter Module for Base Library
  *
@@ -21899,7 +21996,7 @@ define('lb/lb.base.array',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2013-09-09
+ * 2013-09-10
  */
 /*global define */
 define('lb/lb.base.object',[
@@ -21915,6 +22012,7 @@ define('lb/lb.base.object',[
 
     // Declare aliases
     var no = lbBase.no,
+        or = lbBase.or,
         deepCopy = goog.cloneObject,
         shallowCopy = object.clone;
 
@@ -21938,8 +22036,8 @@ define('lb/lb.base.object',[
       // | }
       // with a safer test without type coercion:
       // | function on(event,options){
-      // |   options = has(options)? options : {}; // no type coercion
-      // |   if (!has(event,'data','value'){
+      // |   options = or(options, {}); // no type coercion
+      // |   if ( !has(event,'data','value') ){
       // |     // safe check: only null/undefined values are rejected;
       // |     return;
       // |   }
@@ -21989,7 +22087,7 @@ define('lb/lb.base.object',[
       // Notes:
       //   In the case of a deep copy, there must be no cyclic references in the
       //   given object.
-      deep = has(deep)? deep : false;
+      deep = or(deep, false);
 
       if (deep) {
         return deepCopy(object);
@@ -22006,110 +22104,6 @@ define('lb/lb.base.object',[
     };
 
     return lbBase.object;
-  }
-);
-/*
- * Namespace: lb.base.config
- * Configuration Adapter Module for Base Library
- *
- * This is a generic data storage for configuration properties.
- * Options are stored as properties of a private config object.
- * They can be accessed using setOptions() to set one or several options, and
- * getOption() to retrieve a single value.
- *
- * Authors:
- *   o Eric Bréchemier <github@eric.brechemier.name>
- *   o Marc delhommeau <marc.delhommeau@legalbox.com>
- *
- * Copyright:
- * Eric Bréchemier (c) 2011, Some Rights Reserved
- * Legal-Box SAS (c) 2010-2011, All Rights Reserved
- *
- * License:
- * BSD License
- * http://creativecommons.org/licenses/BSD/
- *
- * Version:
- * 2011-08-14
- */
-/*global define */
-define('lb/lb.base.config',[
-    "./lb.base",
-    "closure/goog.object",
-    "./lb.base.object"
-  ],
-  function(
-    lbBase,
-    gObject,
-    object
-  ) {
-
-    // Declare alias
-    var has = object.has,
-
-    // Private fields
-
-        // object, a hash of configuration properties
-        config = {};
-
-    function reset(){
-      // Function: reset()
-      // Remove all options from configuration.
-
-      config = {};
-    }
-
-    function setOptions(options){
-      // Function: setOptions(options)
-      // Set one or several configuration options.
-      //
-      // Each new option is added to the configuration, replacing any existing
-      // value of the same name. Options previously set are otherwise preserved.
-      //
-      // In order to avoid clashes in the names of configuration properties,
-      // each property should use a prefix corresponding to the implementor of
-      // the module which makes use of it. All configuration properties used in
-      // modules implemented by Legal-Box will use the prefix 'lb', e.g.
-      // 'lbFactory' for the DOM Element Factory.
-      //
-      // Parameter:
-      //   options - object, a set of configuration properties
-
-      gObject.extend(config,options);
-    }
-
-    function getOption(name, defaultValue){
-      // Function: getOption(name, defaultValue)
-      //
-      // Parameters:
-      //   name - string, name of the configuration property to retrieve
-      //   defaultValue - any, optional default value to return in case the
-      //                  configuration value is undefined or null.
-      //                  The default value itself defaults to null.
-      //
-      // Returns:
-      //   - the default value when the corresponding configuration property is
-      //     missing, null or undefined
-      //   - the value of the corresponding configuration property otherwise
-      defaultValue = has(defaultValue)? defaultValue : null;
-
-      var value = config[name];
-      if ( has(value) ){
-        return value;
-      } else {
-        return defaultValue;
-      }
-    }
-
-    // Assign to lb.base.config$
-    // for backward-compatibility in browser environment
-    lbBase.config = { // public API
-      reset: reset,
-      setOptions: setOptions,
-      getOption: getOption
-    };
-
-    return lbBase.config;
   }
 );
 /*
@@ -22251,7 +22245,7 @@ define('lb/lb.base.dom',[
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
- * Eric Bréchemier (c) 2011, Some Rights Reserved
+ * Eric Bréchemier (c) 2011-2013, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -22259,16 +22253,18 @@ define('lb/lb.base.dom',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-08-14
+ * 2013-09-10
  */
 /*global define */
 
 define('lb/lb.base.dom.Listener',[
+    "./lb.base",
     "./lb.base.dom",
     "./lb.base.object",
     "closure/goog.events"
   ],
   function(
+    lbBase,
     lbBaseDom,
     object,
     events
@@ -22294,14 +22290,15 @@ define('lb/lb.base.dom.Listener',[
       //   [1] DOM Level 2 Events: addEventListener
       //   <http://bit.ly/9SQoL4>
 
-      // Declare alias
-      var has = object.has,
+      // Declare aliases
+      var or = lbBase.or,
+          has = object.has,
 
       // Private fields
           key = events.listen(element, type, callback, useCapture);
 
       // initialize optional argument
-      useCapture = has(useCapture)? useCapture : false;
+      useCapture = or(useCapture, false);
 
       function getElement(){
         // Function: getElement(): DOM Element
@@ -23239,7 +23236,7 @@ define('lb/lb.base.history',[
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
- * Eric Bréchemier (c) 2011, Some Rights Reserved
+ * Eric Bréchemier (c) 2011-2013, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -23247,7 +23244,7 @@ define('lb/lb.base.history',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-08-14
+ * 2013-09-10
  */
 /*global define, navigator, document */
 define('lb/lb.base.i18n',[
@@ -23264,8 +23261,8 @@ define('lb/lb.base.i18n',[
   ) {
 
     // Define aliases
-
-    var has = object.has,
+    var or = lbBase.or,
+        has = object.has,
         is = type.is,
         hasAttribute = dom.hasAttribute,
         ELEMENT_NODE = dom.ELEMENT_NODE;
@@ -23313,7 +23310,7 @@ define('lb/lb.base.i18n',[
       // Returns:
       //   string, the value of the first 'lang' attribute found on the node or
       //   its closest ancestor element, or the empty string '' by default.
-      htmlElement = has(htmlElement)? htmlElement : document.documentElement;
+      htmlElement = or(htmlElement, document.documentElement);
 
       var ancestorOrSelf = htmlElement;
       while( has(ancestorOrSelf) ){
@@ -23351,7 +23348,7 @@ define('lb/lb.base.i18n',[
       // Note:
       // Nothing happens in case the language code is not a string or the given
       // html node is not an element.
-      htmlElement = has(htmlElement)? htmlElement : document.documentElement;
+      htmlElement = or(htmlElement, document.documentElement);
 
       if ( !is(languageCode,'string') ||
            htmlElement.nodeType !== ELEMENT_NODE ){
@@ -23984,7 +23981,7 @@ define('lb/lb.base.template',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2013-09-09
+ * 2013-09-10
  */
 /*global define */
 define('lb/lb.base.template.string',[
@@ -24002,6 +23999,7 @@ define('lb/lb.base.template.string',[
 
     // Declare aliases
     var no = lbBase.no,
+        or = lbBase.or,
         has = object.has,
         is = type.is,
 
@@ -24049,7 +24047,7 @@ define('lb/lb.base.template.string',[
       //   | Returns:
       //   |   * any, the value of corresponding property, if found
       //   |   * null otherwise
-      data = has(data)? data : {};
+      data = or(data, {});
       return function(key){
         var properties = data,
             path = key.split('.'),
@@ -24153,7 +24151,7 @@ define('lb/lb.base.template.string',[
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
- * Eric Bréchemier (c) 2011, Some Rights Reserved
+ * Eric Bréchemier (c) 2011-2013, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -24161,10 +24159,11 @@ define('lb/lb.base.template.string',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-08-14
+ * 2013-09-10
  */
 /*global define, window */
 define('lb/lb.base.template.html',[
+    "./lb.base",
     "./lb.base.template",
     "./lb.base.object",
     "./lb.base.type",
@@ -24174,18 +24173,20 @@ define('lb/lb.base.template.html',[
     "./lb.base.log"
   ],
   function(
+    lbBase,
     lbBaseTemplate,
     object,
     type,
     array,
     dom,
-    string, 
+    string,
     logModule
   ) {
 
     // Declare aliases
 
-    var has = object.has,
+    var or = lbBase.or,
+        has = object.has,
         is = type.is,
         toArray = array.toArray,
         ELEMENT_NODE = dom.ELEMENT_NODE,
@@ -24286,7 +24287,7 @@ define('lb/lb.base.template.html',[
       //
       // Returns:
       //   string, the input URL, with the hash part removed
-      url = has(url)? url : window.location.href;
+      url = or(url, window.location.href);
 
       // Remove the fragment part of the url
       var pos = url.indexOf("#");
@@ -24318,7 +24319,7 @@ define('lb/lb.base.template.html',[
       //   properties, considered as attributes) in Internet Explorer.
       if ( (node.nodeType === ATTRIBUTE_NODE) &&
            (node.name === 'href' || node.name === 'src')  ) {
-        var baseUrl = getBaseUrl(); 
+        var baseUrl = getBaseUrl();
         if ( node.nodeValue.indexOf(baseUrl) === 0 ) {
           // Remove absolute URL added by IE 7 at start of local href and src
           // The URL is identical to the part of window.location.href before the '#'
@@ -24428,7 +24429,7 @@ define('lb/lb.base.template.html',[
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2013-09-09
+ * 2013-09-10
  */
 /*global define */
 define('lb/lb.base.template.i18n',[
@@ -24459,6 +24460,7 @@ define('lb/lb.base.template.i18n',[
     // Declare aliases
 
     var no = lbBase.no,
+        or = lbBase.or,
         has = object.has,
         is = type.is,
         ELEMENT_NODE = dom.ELEMENT_NODE,
@@ -24549,7 +24551,7 @@ define('lb/lb.base.template.i18n',[
       //     the language properties of the most specific language available
       //   * or null if the property is not found, or if the function template
       //     found throws an exception
-      data = has(data)? data : {};
+      data = or(data, {});
       if ( !is(languageCode,'string') ){
         languageCode = getDefaultLanguageCode();
       }
@@ -24612,7 +24614,7 @@ define('lb/lb.base.template.i18n',[
       //   |   * any, the value of corresponding language property found in the
       //   |     most specific language available, as a fallback
       //   |   * null if neither is available
-      data = has(data)? data : {};
+      data = or(data, {});
       if ( !is(languageCode,'string') ){
         languageCode = getDefaultLanguageCode();
       }
@@ -24782,7 +24784,7 @@ define('lb/lb.base.template.i18n',[
       // Reference:
       //   Specifying the language of content: the lang attribute
       //   o http://www.w3.org/TR/html401/struct/dirlang.html#h-8.1
-      data = has(data)? data : {};
+      data = or(data, {});
       if ( !is(languageCode,'string') ){
         languageCode = getDefaultLanguageCode();
       }
@@ -24972,6 +24974,7 @@ define('lb/lb.core.plugins',[
 /*global define, document, window */
 define('lb/lb.core.Sandbox',[
     "./lb.core",
+    "./lb.base",
     "./lb.base.object",
     "./lb.base.config",
     "./lb.base.dom.factory",
@@ -24980,6 +24983,7 @@ define('lb/lb.core.Sandbox',[
   ],
   function(
     lbCore,
+    lbBase,
     object,
     config,
     defaultFactory,
@@ -25002,7 +25006,8 @@ define('lb/lb.core.Sandbox',[
       //   object, the new instance of Sandbox
 
       // Define aliases
-      var has = object.has,
+      var or = lbBase.or,
+          has = object.has,
           log = logModule.print,
 
       // Private fields
@@ -25052,7 +25057,7 @@ define('lb/lb.core.Sandbox',[
         // Returns:
         //   * DOM Element, the HTML element corresponding to the module id,
         //   * or null, in case createIfMissing is false and the element is missing
-        createIfMissing = has(createIfMissing)? createIfMissing : true;
+        createIfMissing = or(createIfMissing, true);
 
         var factory;
 
@@ -26492,8 +26497,8 @@ define('lb/lb.core.plugins.utils',[
       // | }
       // with a safer test without type coercion:
       // | function on(event,options){
-      // |   options = has(options)? options : {}; // no type coercion
-      // |   if (!has(event,'data','value'){
+      // |   options = or(options, {}); // no type coercion
+      // |   if ( !has(event,'data','value') ){
       // |     // safe check: only null/undefined values are rejected;
       // |     return;
       // |   }
