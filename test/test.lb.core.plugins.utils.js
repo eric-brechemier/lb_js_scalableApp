@@ -10,7 +10,7 @@
  * BSD License
  * http://creativecommons.org/licenses/BSD/
  *
- * Version:   2013-09-09
+ * Version:   2013-09-10
  *
  * Based on Test Runner from bezen.org JavaScript library
  * CC-BY: Eric Bréchemier - http://bezen.org/javascript/
@@ -106,6 +106,79 @@ define(
       checkFalseFor( [ 1, 2, 3 ] );
       checkFalseFor( 0 );
       checkFalseFor( 42 );
+    }
+
+    function testOr(){
+      var sandbox = new Sandbox('testOr');
+      pluginsUtils(sandbox);
+      var ut = sandbox.utils.or;
+
+      assert.isTrue(
+        ut( true, false ) === true &&
+        ut( false, true ) === false,
+                        "first boolean value provided is expected as result" );
+      assert.isTrue(
+        ut( 0, 1 ) === 0 &&
+        ut( 1, 0 ) === 1,
+                               "first number provided is expected as result" );
+
+      assert.isTrue(
+        ut( "a", "b" ) === "a" &&
+        ut( "b", "a" ) === "b",
+                         "first string value provided is expected as result" );
+
+      var
+        objectA = {},
+        objectB = new Date();
+
+      assert.isTrue(
+        ut( objectA, objectB ) === objectA &&
+        ut( objectB, objectA ) === objectB,
+                               "first object provided is expected as result" );
+
+      var
+        arrayA = [],
+        arrayB = [ 1, "two", /3/ ];
+
+      assert.isTrue(
+        ut( arrayA, arrayB ) === arrayA &&
+        ut( arrayB, arrayA ) === arrayB,
+                                "first array provided is expected as result" );
+
+      function funcA() {}
+      function funcB() { return 42; }
+
+      assert.isTrue(
+        ut( funcA, funcB ) === funcA &&
+        ut( funcB, funcA ) === funcB,
+                             "first function provided is expected as result" );
+
+      assert.isTrue(
+        ut( null, undefined ) === undefined &&
+        ut( undefined, null ) === null,
+                        "last null or undefined value is expected as result" );
+
+      assert.isTrue(
+        ut( null, false ) === false &&
+        ut( null, true ) === true &&
+        ut( null, 0 ) === 0 &&
+        ut( null, 1 ) === 1 &&
+        ut( null, "a" ) === "a" &&
+        ut( null, objectA ) === objectA &&
+        ut( null, arrayA ) === arrayA &&
+        ut( null, funcA ) === funcA,
+                   "second argument is expected when first argument is null" );
+
+      assert.isTrue(
+        ut( undefined, false ) === false &&
+        ut( undefined, true ) === true &&
+        ut( undefined, 0 ) === 0 &&
+        ut( undefined, 1 ) === 1 &&
+        ut( undefined, "a" ) === "a" &&
+        ut( undefined, objectA ) === objectA &&
+        ut( undefined, arrayA ) === arrayA &&
+        ut( undefined, funcA ) === funcA,
+              "second argument is expected when first argument is undefined" );
     }
 
     function testHas(){
@@ -280,6 +353,7 @@ define(
       testNamespace: testNamespace,
       testPlugin: testPlugin,
       testNo: testNo,
+      testOr: testOr,
       testHas: testHas,
       testIs: testIs,
       testGetTimestamp: testGetTimestamp,
