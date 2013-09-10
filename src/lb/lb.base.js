@@ -15,7 +15,7 @@
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2013-09-09
+ * 2013-09-10
  */
 /*global define */
 define(
@@ -39,10 +39,25 @@ define(
       return value === null || value === undef;
     }
 
+    function or( a, b ) {
+      // Function: or(a,b): any
+      // Get a default value when given value is null or undefined
+      //
+      // Parameters:
+      //   a - any, the value to check
+      //   b - any, the default value
+      //
+      // Returns:
+      //   any, the default value when the value is null or undefined,
+      //   the value itself otherwise.
+      return no( a )? b: a;
+    }
+
     // Assign to lb.base
     // for backward-compatibility in browser environment
     lb.base = { // public API
-      no: no
+      no: no,
+      or: or
     };
 
     return lb.base;
