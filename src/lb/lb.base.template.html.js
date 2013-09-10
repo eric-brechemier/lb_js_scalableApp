@@ -15,7 +15,7 @@
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
- * Eric Bréchemier (c) 2011, Some Rights Reserved
+ * Eric Bréchemier (c) 2011-2013, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -23,11 +23,12 @@
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-08-14
+ * 2013-09-10
  */
 /*global define, window */
 define(
   [
+    "./lb.base",
     "./lb.base.template",
     "./lb.base.object",
     "./lb.base.type",
@@ -37,6 +38,7 @@ define(
     "./lb.base.log"
   ],
   function(
+    lbBase,
     lbBaseTemplate,
     object,
     type,
@@ -48,7 +50,8 @@ define(
 
     // Declare aliases
 
-    var has = object.has,
+    var or = lbBase.or,
+        has = object.has,
         is = type.is,
         toArray = array.toArray,
         ELEMENT_NODE = dom.ELEMENT_NODE,
@@ -149,7 +152,7 @@ define(
       //
       // Returns:
       //   string, the input URL, with the hash part removed
-      url = has(url)? url : window.location.href;
+      url = or(url, window.location.href);
 
       // Remove the fragment part of the url
       var pos = url.indexOf("#");

@@ -23,7 +23,7 @@
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2013-09-09
+ * 2013-09-10
  */
 /*global define */
 define(
@@ -42,6 +42,7 @@ define(
 
     // Declare aliases
     var no = lbBase.no,
+        or = lbBase.or,
         has = object.has,
         is = type.is,
 
@@ -89,7 +90,7 @@ define(
       //   | Returns:
       //   |   * any, the value of corresponding property, if found
       //   |   * null otherwise
-      data = has(data)? data : {};
+      data = or(data, {});
       return function(key){
         var properties = data,
             path = key.split('.'),

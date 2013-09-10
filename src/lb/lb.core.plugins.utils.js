@@ -130,8 +130,8 @@ define(
       // | }
       // with a safer test without type coercion:
       // | function on(event,options){
-      // |   options = has(options)? options : {}; // no type coercion
-      // |   if (!has(event,'data','value'){
+      // |   options = or(options, {}); // no type coercion
+      // |   if ( !has(event,'data','value') ){
       // |     // safe check: only null/undefined values are rejected;
       // |     return;
       // |   }

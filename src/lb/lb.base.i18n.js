@@ -26,7 +26,7 @@
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
- * Eric Bréchemier (c) 2011, Some Rights Reserved
+ * Eric Bréchemier (c) 2011-2013, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -34,7 +34,7 @@
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-08-14
+ * 2013-09-10
  */
 /*global define, navigator, document */
 define(
@@ -52,8 +52,8 @@ define(
   ) {
 
     // Define aliases
-
-    var has = object.has,
+    var or = lbBase.or,
+        has = object.has,
         is = type.is,
         hasAttribute = dom.hasAttribute,
         ELEMENT_NODE = dom.ELEMENT_NODE;
@@ -101,7 +101,7 @@ define(
       // Returns:
       //   string, the value of the first 'lang' attribute found on the node or
       //   its closest ancestor element, or the empty string '' by default.
-      htmlElement = has(htmlElement)? htmlElement : document.documentElement;
+      htmlElement = or(htmlElement, document.documentElement);
 
       var ancestorOrSelf = htmlElement;
       while( has(ancestorOrSelf) ){
@@ -139,7 +139,7 @@ define(
       // Note:
       // Nothing happens in case the language code is not a string or the given
       // html node is not an element.
-      htmlElement = has(htmlElement)? htmlElement : document.documentElement;
+      htmlElement = or(htmlElement, document.documentElement);
 
       if ( !is(languageCode,'string') ||
            htmlElement.nodeType !== ELEMENT_NODE ){

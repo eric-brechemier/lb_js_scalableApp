@@ -87,6 +87,7 @@
 define(
   [
     "./lb.core",
+    "./lb.base",
     "./lb.base.object",
     "./lb.base.config",
     "./lb.base.dom.factory",
@@ -95,6 +96,7 @@ define(
   ],
   function(
     lbCore,
+    lbBase,
     object,
     config,
     defaultFactory,
@@ -117,7 +119,8 @@ define(
       //   object, the new instance of Sandbox
 
       // Define aliases
-      var has = object.has,
+      var or = lbBase.or,
+          has = object.has,
           log = logModule.print,
 
       // Private fields
@@ -167,7 +170,7 @@ define(
         // Returns:
         //   * DOM Element, the HTML element corresponding to the module id,
         //   * or null, in case createIfMissing is false and the element is missing
-        createIfMissing = has(createIfMissing)? createIfMissing : true;
+        createIfMissing = or(createIfMissing, true);
 
         var factory;
 

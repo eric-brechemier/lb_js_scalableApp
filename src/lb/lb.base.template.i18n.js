@@ -26,7 +26,7 @@
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2013-09-09
+ * 2013-09-10
  */
 /*global define */
 define(
@@ -58,6 +58,7 @@ define(
     // Declare aliases
 
     var no = lbBase.no,
+        or = lbBase.or,
         has = object.has,
         is = type.is,
         ELEMENT_NODE = dom.ELEMENT_NODE,
@@ -148,7 +149,7 @@ define(
       //     the language properties of the most specific language available
       //   * or null if the property is not found, or if the function template
       //     found throws an exception
-      data = has(data)? data : {};
+      data = or(data, {});
       if ( !is(languageCode,'string') ){
         languageCode = getDefaultLanguageCode();
       }
@@ -211,7 +212,7 @@ define(
       //   |   * any, the value of corresponding language property found in the
       //   |     most specific language available, as a fallback
       //   |   * null if neither is available
-      data = has(data)? data : {};
+      data = or(data, {});
       if ( !is(languageCode,'string') ){
         languageCode = getDefaultLanguageCode();
       }
@@ -381,7 +382,7 @@ define(
       // Reference:
       //   Specifying the language of content: the lang attribute
       //   o http://www.w3.org/TR/html401/struct/dirlang.html#h-8.1
-      data = has(data)? data : {};
+      data = or(data, {});
       if ( !is(languageCode,'string') ){
         languageCode = getDefaultLanguageCode();
       }

@@ -12,7 +12,7 @@
  *   o Marc delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
- * Eric Bréchemier (c) 2011, Some Rights Reserved
+ * Eric Bréchemier (c) 2011-2013, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -20,23 +20,21 @@
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-08-14
+ * 2013-09-10
  */
 /*global define */
 define(
   [
     "./lb.base",
-    "closure/goog.object",
-    "./lb.base.object"
+    "closure/goog.object"
   ],
   function(
     lbBase,
-    gObject,
-    object
+    gObject
   ) {
 
     // Declare alias
-    var has = object.has,
+    var or = lbBase.or,
 
     // Private fields
 
@@ -82,14 +80,9 @@ define(
       //   - the default value when the corresponding configuration property is
       //     missing, null or undefined
       //   - the value of the corresponding configuration property otherwise
-      defaultValue = has(defaultValue)? defaultValue : null;
+      defaultValue = or(defaultValue, null);
 
-      var value = config[name];
-      if ( has(value) ){
-        return value;
-      } else {
-        return defaultValue;
-      }
+      return or(config[name], defaultValue);
     }
 
     // Assign to lb.base.config$

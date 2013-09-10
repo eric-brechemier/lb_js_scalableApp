@@ -15,7 +15,7 @@
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2013-09-09
+ * 2013-09-10
  */
 /*global define */
 define(
@@ -32,6 +32,7 @@ define(
 
     // Declare aliases
     var no = lbBase.no,
+        or = lbBase.or,
         deepCopy = goog.cloneObject,
         shallowCopy = object.clone;
 
@@ -55,8 +56,8 @@ define(
       // | }
       // with a safer test without type coercion:
       // | function on(event,options){
-      // |   options = has(options)? options : {}; // no type coercion
-      // |   if (!has(event,'data','value'){
+      // |   options = or(options, {}); // no type coercion
+      // |   if ( !has(event,'data','value') ){
       // |     // safe check: only null/undefined values are rejected;
       // |     return;
       // |   }
@@ -106,7 +107,7 @@ define(
       // Notes:
       //   In the case of a deep copy, there must be no cyclic references in the
       //   given object.
-      deep = has(deep)? deep : false;
+      deep = or(deep, false);
 
       if (deep) {
         return deepCopy(object);

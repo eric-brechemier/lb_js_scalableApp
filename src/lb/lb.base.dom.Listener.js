@@ -11,7 +11,7 @@
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
- * Eric Bréchemier (c) 2011, Some Rights Reserved
+ * Eric Bréchemier (c) 2011-2013, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -19,17 +19,19 @@
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-08-14
+ * 2013-09-10
  */
 /*global define */
 
 define(
   [
+    "./lb.base",
     "./lb.base.dom",
     "./lb.base.object",
     "closure/goog.events"
   ],
   function(
+    lbBase,
     lbBaseDom,
     object,
     events
@@ -55,14 +57,15 @@ define(
       //   [1] DOM Level 2 Events: addEventListener
       //   <http://bit.ly/9SQoL4>
 
-      // Declare alias
-      var has = object.has,
+      // Declare aliases
+      var or = lbBase.or,
+          has = object.has,
 
       // Private fields
           key = events.listen(element, type, callback, useCapture);
 
       // initialize optional argument
-      useCapture = has(useCapture)? useCapture : false;
+      useCapture = or(useCapture, false);
 
       function getElement(){
         // Function: getElement(): DOM Element
