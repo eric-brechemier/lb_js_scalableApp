@@ -15,7 +15,7 @@
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2013-09-09
+ * 2013-09-10
  */
 /*global define, window */
 define(
@@ -47,6 +47,7 @@ define(
 
       // Declare aliases
       var no = lbBase.no,
+          or = lbBase.or,
           has = object.has,
           is = type.is,
           trim = string.trim,
@@ -82,6 +83,33 @@ define(
       //   true otherwise
 
       // Note: no() is an alias for lb.base.no
+
+      // Function: sandbox.utils.or(a,b): any
+      // Get a default value when given value is null or undefined
+      //
+      // The intent of this method is to replace unsafe initialization of
+      // optional parameters to a default value relying on type coercion:
+      // | function on(event,options){
+      // |   options = options || {}; // type coercion
+      // |   var isUser = options.isUser || false; // type coercion
+      // |   // ...
+      // | }
+      // with a safer initialization without type coercion:
+      // | function on(event,options){
+      // |   options = or(options, {}); // no type coercion
+      // |   var isUser = or(options.isUser, false); // no type coercion
+      // |   // ...
+      // | }
+      //
+      // Parameters:
+      //   a - any, the value to check
+      //   b - any, the default value
+      //
+      // Returns:
+      //   any, the default value when the value is null or undefined,
+      //   the value itself otherwise.
+
+      // Note: or() is an alias for lb.base.or
 
       // Function: sandbox.utils.has(object,property[,...]): boolean
       // Check whether an object property is present and not null nor undefined.
@@ -205,8 +233,6 @@ define(
 
       // Note: is() is an alias for lb.base.type.is
 
-      // TODO: add no() to utils plugin and sandbox
-
       function getTimestamp(){
         // Function: sandbox.utils.getTimestamp(): number
         // Get current timestamp, in milliseconds.
@@ -290,6 +316,7 @@ define(
 
       sandbox.utils = {
         no: no,
+        or: or,
         has: has,
         is: is,
         getTimestamp: getTimestamp,

@@ -53,7 +53,8 @@
  *   - <lb.core.plugins.url.sandbox.url.onHashChange(callback)>
  *
  * General utilities (sandbox.utils):
- *   TODO: add no() to sandbox.utils
+ *   - <lb.core.plugins.utils.sandbox.utils.no(value): boolean>
+ *   - <lb.core.plugins.utils.sandbox.utils.or(a,b): any>
  *   - <lb.core.plugins.utils.sandbox.utils.has(object,property[,...]): boolean>
  *   - <lb.core.plugins.utils.sandbox.utils.is([...,]value[,type]): boolean>
  *   - <lb.core.plugins.utils.sandbox.utils.getTimestamp(): number>
@@ -72,7 +73,7 @@
  * o Marc Delhommeau <marc.delhommeau@legalbox.com>
  *
  * Copyright:
- * Eric Bréchemier (c) 2011, Some Rights Reserved
+ * Eric Bréchemier (c) 2011-2013, Some Rights Reserved
  * Legal-Box SAS (c) 2010-2011, All Rights Reserved
  *
  * License:
@@ -80,7 +81,7 @@
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2011-08-14
+ * 2013-09-10
  */
 /*global define, document, window */
 define(
