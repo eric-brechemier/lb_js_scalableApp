@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head profile="http://dublincore.org/documents/2008/08/04/dc-html/">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Unit Tests for lb.core.plugins.array.js</title>
+    <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+    <meta name="DC.creator" content="Eric Bréchemier" />
+    <meta name="DC.rights" content=
+    "Copyright Eric Bréchemier (c) 2011-2013, Some Rights Reserved.
+     Copyright Legal-Box SAS (c) 2010-2011, All Rights Reserved.
+     Licensed under a BSD License" />
+    <meta name="DC.rights" scheme="DCTERMS.URI"
+          content="http://creativecommons.org/licenses/BSD/" />
+    <meta name="DC.date" content="2013-09-13" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="style/test.css" />
+  </head>
+  <body>
+    <h1>
+      Unit Tests for lb.core.plugins.array.js
+    </h1>
+    <div class="status-text" id="bezen.test.status">0 / 0</div>
+    <div class="progress-bar">
+      <div class="progress" id="bezen.test.progress"></div>
+    </div>
+    <ul>
+      <li>
+      See the <a href="test.lb.core.plugins.array.js">source code</a> of the
+      test.
+      </li>
+      <li>
+      See the list of <a href="index.html">all unit tests</a>.
+      </li>
+    </ul>
+    <p>
+      <em>Note:</em>
+      The output of the test is displayed in the div below.
+      You may also use
+      <a href="https://addons.mozilla.org/fr/firefox/addon/1843"
+         target="_blank">Firebug</a>
+      or
+      <a href="http://www.billyreisinger.com/jash/"
+         target="_blank">Jash</a>
+      to see the output of the test in a console.
+    </p>
+
+    <div class='console'>
+      <pre id='bezen.log'></pre>
+    </div>
+    <!--script type="text/javascript"
+        src="http://www.billyreisinger.com/jash/source/latest/Jash.js">
+    </script-->
+
+    <!--[if IE]>
+      <iframe id="lb.base.history.iframe" src="favicon.ico" class="hidden"
+      ></iframe>
+    <![endif]-->
+    <input id="lb.base.history.input" type="hidden" />
+
+    <script src="../build/lib/requirejs/require.js"></script>
+    <script>
+    require(
+      {
+        paths: {
+          "lb": "../src/lb",
+          "closure": "../src/closure",
+          "closure/goog.net.MockXmlHttp": "closure/goog.net.MockXmlHttp",
+          "bezen.org": "bezen.org"
+        }
+      },
+      [
+        "bezen.org/bezen.testrunner",
+        "test.lb.core.plugins.array"
+      ],
+      function(testrunner){
+        testrunner.run();
+      }
+    );
+    </script>
+
+  </body>
+</html>
