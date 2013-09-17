@@ -14,7 +14,7 @@
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2013-09-16
+ * 2013-09-17
  */
 /*global define */
 define(
@@ -36,7 +36,7 @@ define(
       // Parameters:
       //   sandbox - object, the sandbox instance to enrich with array methods
 
-      // Function: sandbox.array.forEach(): boolean
+      // Function: sandbox.array.forEach(array, callback): boolean
       // Run given function for each item in given array,
       // including items with null and undefined values
       //
@@ -63,7 +63,7 @@ define(
 
       // Note: forEach() is an alias for lb.base.array.forEach
 
-      // Function: sandbox.array.map(): array
+      // Function: sandbox.array.map(array, operation): array
       // Apply a function to all the elements in a list
       //
       // Parameters:
@@ -79,7 +79,7 @@ define(
 
       // Note: map() is an alias for lb.base.array.map
 
-      // Function: sandbox.array.reduce(): any
+      // Function: sandbox.array.reduce(accumulator, array, operation): any
       // Compute a value by processing a list of items, one at a time
       //
       // Parameters:

@@ -66,7 +66,7 @@ define(
     }
 
     function map( array, operation ) {
-      // Function: map(): array
+      // Function: map(array, operation): array
       // Apply a function to all the elements in a list
       //
       // Parameters:
@@ -89,7 +89,7 @@ define(
     }
 
     function reduce( accumulator, array, operation ) {
-      // Function: reduce(): any
+      // Function: reduce(accumulator, array, operation): any
       // Compute a value by processing a list of items, one at a time
       //
       // Parameters:
