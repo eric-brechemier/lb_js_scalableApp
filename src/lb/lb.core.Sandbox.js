@@ -15,6 +15,11 @@
  *   - <sandbox.getBox(createIfMissing): DOM Element>
  *   - <sandbox.isInBox(element): boolean>
  *
+ * Array (sandbox.array, defined by <lb.core.plugins.array>):
+ *   - <lb.core.plugins.array.sandbox.array.forEach(array,callback): boolean>
+ *   - <lb.core.plugins.array.sandbox.array.map(array,operation): array>
+ *   - <lb.core.plugins.array.sandbox.array.reduce(accumulator,array,operation): any>
+ *
  * Cascading Style Sheets (sandbox.css, defined by <lb.core.plugins.css>):
  *   - <lb.core.plugins.css.sandbox.css.getClasses(element): object>
  *   - <lb.core.plugins.css.sandbox.css.addClass(element,name)>
@@ -81,7 +86,7 @@
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2013-09-10
+ * 2013-09-17
  */
 /*global define, document, window */
 define(
