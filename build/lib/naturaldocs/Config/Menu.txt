@@ -39,6 +39,7 @@ Timestamp: yyyy-mm-dd
 Group: Sandbox API {
   Text: sandboxed API, for use in your modules
   File: lb.core.Sandbox  (no auto-title, lb/lb.core.Sandbox.js)
+  File: lb.core.plugins.array  (no auto-title, lb/lb.core.plugins.array.js)
   File: lb.core.plugins.css  (no auto-title, lb/lb.core.plugins.css.js)
   File: lb.core.plugins.dom  (no auto-title, lb/lb.core.plugins.dom.js)
   File: lb.core.plugins.events (no auto-title, lb/lb.core.plugins.events.js)
