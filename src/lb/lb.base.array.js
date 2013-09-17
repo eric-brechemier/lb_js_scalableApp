@@ -15,7 +15,7 @@
  * http://creativecommons.org/licenses/BSD/
  *
  * Version:
- * 2013-09-16
+ * 2013-09-17
  */
 /*global define */
 define(
@@ -79,7 +79,7 @@ define(
       // Returns:
       //   array, the list of results of the operation applied to each item
       //   of the given array.
-      var result = Array( array.length );
+      var result = new Array( array.length );
 
       forEach( array, function( item, i ) {
         result[ i ] = operation( item, i );
