@@ -211,10 +211,12 @@ define(
 
         var ancestor = element;
         while ( has(ancestor) ) {
-          // TODO: return false when a document node is reached without passing by
-          //       the root of the box
-
-          // TODO: allow document-fragment or null as last ancestor
+          // TODO: consider two optional enhancements if isInBox()
+          //       becomes used in the filterHtml() method of the
+          //       module lb.core.plugins.i18n:
+          //    1) return false when a document node is reached
+          //       without passing by the root of the box
+          //    2) allow document-fragment or null as last ancestor
           //       for nodes not/no longer part of the DOM
 
           // box must be found in ancestors or self
