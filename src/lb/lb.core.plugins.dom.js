@@ -195,9 +195,10 @@ define(
         // Note:
         //   Nothing happens when the listener has already been removed.
 
-        // TODO: use lb.base.array.removeOne(listeners,listener) instead
-        // To check that only removed listener is destroyed, a return value is
-        // needed in removeOne(). It must be added in the base array module.
+        // TODO: use lb.base.array.removeOne(listeners,listener) instead.
+        // To check that the listener is only destroyed when removed (found),
+        // a return value is needed in removeOne(); it must be added to the
+        // method implementation in the base array module.
         var i;
         for (i=0; i<listeners.length; i++){
           if (listeners[i]===listener){
