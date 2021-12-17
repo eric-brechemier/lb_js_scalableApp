@@ -1,6 +1,6 @@
 
 The Scalable JavaScript Application framework
-http://eric-brechemier.github.com/lb_js_scalableApp/
+https://eric-brechemier.github.io/lb_js_scalableApp/
 
 LANGUAGES
 
@@ -51,13 +51,13 @@ REFERENCES
   http://www.slideshare.net/nzakas/scalable-javascript-application-architecture
 
   [2] Design Patterns for Scalable JavaScript Application
-  http://eric-brechemier.github.com/lb_js_scalableApp/doc/javascript-application-design-patterns.pdf
+  https://eric-brechemier.github.io/lb_js_scalableApp/doc/javascript-application-design-patterns.pdf
 
   [3] Semantic Versioning
   http://semver.org
 
   [4] HTML API of The Scalable JavaScript Application framework (latest stable)
-  http://eric-brechemier.github.com/lb_js_scalableApp/build/out/doc/
+  https://eric-brechemier.github.io/lb_js_scalableApp/build/out/doc/
 
   [5] Introduction to The Scalable JavaScript Application Framework (slides)
   https://github.com/eric-brechemier/introduction_to_lb_js_scalableApp
